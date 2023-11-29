@@ -1,4 +1,4 @@
-package br.com.fiapvideo.domain;
+package br.com.fiapvideo.useCases.domain;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

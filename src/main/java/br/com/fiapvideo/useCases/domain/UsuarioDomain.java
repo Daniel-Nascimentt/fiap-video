@@ -1,18 +1,20 @@
-package br.com.fiapvideo.domain;
+package br.com.fiapvideo.useCases.domain;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-@AllArgsConstructor
 @Getter
 @Setter
+@Document
 public class UsuarioDomain {
 
     private String id;
@@ -28,6 +30,17 @@ public class UsuarioDomain {
     private LocalDate dataNascimento;
 
     @NotNull(message = "Uma conta precisa ser criada.")
+    @DBRef
     private ContaDomain conta;
 
+    @NotNull(message = "Precisa de uma data de cadastro")
+    private LocalDateTime cadastradoEm;
+
+    public UsuarioDomain(String nome, String email, LocalDate dataNascimento, ContaDomain conta, LocalDateTime cadastradoEm) {
+        this.nome = nome;
+        this.email = email;
+        this.dataNascimento = dataNascimento;
+        this.conta = conta;
+        this.cadastradoEm = cadastradoEm;
+    }
 }
