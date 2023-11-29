@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -57,7 +58,7 @@ public class UsuárioUseCaseTest {
                 "Nome do usuário",
                 "email@teste.com",
                 LocalDate.of(2000, 5, 19),
-                new ContaDomain(),
+                new ContaDomain(new ArrayList<>(), new ArrayList<>(), new ArrayList<>()),
                 LocalDateTime.now()
         );
     }
