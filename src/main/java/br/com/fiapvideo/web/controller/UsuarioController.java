@@ -22,7 +22,7 @@ public class UsuarioController {
 
     @PostMapping
     public Mono<ResponseEntity<UsuarioResponse>> criarNovoUsuario(@RequestBody @Valid UsuarioRequest request){
-        return usuarioService.criarNovoUsuario(request);
+        return usuarioService.criarNovoUsuario(request).map(usuario -> ResponseEntity.status(HttpStatus.CREATED).body(usuario));
     }
 
 }

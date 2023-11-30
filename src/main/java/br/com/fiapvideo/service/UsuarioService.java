@@ -6,7 +6,6 @@ import br.com.fiapvideo.useCases.UsuarioUseCase;
 import br.com.fiapvideo.web.request.UsuarioRequest;
 import br.com.fiapvideo.web.response.UsuarioResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -19,7 +18,7 @@ public class UsuarioService {
     @Autowired
     private ContaRepository contaRepository;
 
-    public Mono<ResponseEntity<UsuarioResponse>> criarNovoUsuario(UsuarioRequest request) {
+    public Mono<UsuarioResponse> criarNovoUsuario(UsuarioRequest request) {
         return new UsuarioUseCase().criarNovoUsuario(request, usuarioRepository, contaRepository);
     }
 }

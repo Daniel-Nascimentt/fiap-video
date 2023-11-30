@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
@@ -41,12 +40,12 @@ public class UsuarioUseCaseTest {
         when(usuarioRepository.save(any())).thenReturn(Mono.just(getFakeUsuario()));
         when(contaRepository.save(any())).thenReturn(Mono.just(new ContaDomain(new ArrayList<>(), new ArrayList<>(), new ArrayList<>())));
 
-        Mono<ResponseEntity<UsuarioResponse>> usuarioMono = new UsuarioUseCase().criarNovoUsuario(getRequestFakeUsuario(), usuarioRepository, contaRepository);
+        Mono<UsuarioResponse> usuarioMono = new UsuarioUseCase().criarNovoUsuario(getRequestFakeUsuario(), usuarioRepository, contaRepository);
 
         StepVerifier.create(usuarioMono)
                 .expectNextMatches(usuario -> {
-                    assertNotNull(usuario.getBody());
-                    assertInstanceOf(UsuarioResponse.class, usuario.getBody());
+                    assertNotNull(usuario);
+                    assertInstanceOf(UsuarioResponse.class, usuario);
                     verify(usuarioRepository, times(1)).save(any());
                     return true;
                 }).verifyComplete();

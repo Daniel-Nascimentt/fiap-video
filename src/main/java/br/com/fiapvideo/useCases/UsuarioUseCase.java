@@ -5,16 +5,13 @@ import br.com.fiapvideo.repository.UsuarioRepository;
 import br.com.fiapvideo.useCases.domain.UsuarioDomain;
 import br.com.fiapvideo.web.request.UsuarioRequest;
 import br.com.fiapvideo.web.response.UsuarioResponse;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 
 public class UsuarioUseCase {
 
-    public Mono<ResponseEntity<UsuarioResponse>> criarNovoUsuario(UsuarioRequest request, UsuarioRepository usuarioRepository, ContaRepository contaRepository){
-
+    public Mono<UsuarioResponse> criarNovoUsuario(UsuarioRequest request, UsuarioRepository usuarioRepository, ContaRepository contaRepository){
 
         return usuarioRepository.save(
                 new UsuarioDomain(
@@ -24,8 +21,7 @@ public class UsuarioUseCase {
                         new ContaUseCase().criarConta(contaRepository).block(),
                         LocalDateTime.now()
                 )
-        ).map(this::converterDomainParaResponse)
-         .map(usuarioResponse -> ResponseEntity.status(HttpStatus.CREATED).body(usuarioResponse));
+        ).map(this::converterDomainParaResponse);
     }
 
     private UsuarioResponse converterDomainParaResponse(UsuarioDomain usuarioSaved) {
