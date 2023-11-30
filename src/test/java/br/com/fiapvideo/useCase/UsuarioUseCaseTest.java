@@ -11,7 +11,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Mono;
@@ -28,7 +27,7 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
-public class UsuárioUseCaseTest {
+public class UsuarioUseCaseTest {
 
     @Mock
     private UsuarioRepository usuarioRepository;
@@ -37,7 +36,7 @@ public class UsuárioUseCaseTest {
     private ContaRepository contaRepository;
 
     @Test
-    @DisplayName(value = "Deve cadastrar um usuário a partir da request.")
+    @DisplayName(value = "Deve cadastrar um usuario a partir da request.")
     public void criarUsuario(){
         when(usuarioRepository.save(any())).thenReturn(Mono.just(getFakeUsuario()));
         when(contaRepository.save(any())).thenReturn(Mono.just(new ContaDomain(new ArrayList<>(), new ArrayList<>(), new ArrayList<>())));
@@ -56,7 +55,7 @@ public class UsuárioUseCaseTest {
 
     private UsuarioRequest getRequestFakeUsuario() {
         return new UsuarioRequest(
-                "Nome do usuário",
+                "Nome do usuario",
                 "email@teste.com",
                 LocalDate.of(2000, 5, 19)
         );
@@ -64,7 +63,7 @@ public class UsuárioUseCaseTest {
 
     private UsuarioDomain getFakeUsuario() {
         return new UsuarioDomain(
-                "Nome do usuário",
+                "Nome do usuario",
                 "email@teste.com",
                 LocalDate.of(2000, 5, 19),
                 getContaFake(),
