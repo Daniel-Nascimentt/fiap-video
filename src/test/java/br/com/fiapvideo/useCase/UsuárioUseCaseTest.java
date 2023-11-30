@@ -11,7 +11,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.ResponseEntity;
+import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -35,13 +39,18 @@ public class UsuárioUseCaseTest {
     @Test
     @DisplayName(value = "Deve cadastrar um usuário a partir da request.")
     public void criarUsuario(){
-        when(usuarioRepository.save(any())).thenReturn(getFakeUsuario());
+        when(usuarioRepository.save(any())).thenReturn(Mono.just(getFakeUsuario()));
+        when(contaRepository.save(any())).thenReturn(Mono.just(new ContaDomain(new ArrayList<>(), new ArrayList<>(), new ArrayList<>())));
 
-        UsuarioResponse usuario = new UsuarioUseCase().criarNovoUsuario(getRequestFakeUsuario(), usuarioRepository, contaRepository);
+        Mono<ResponseEntity<UsuarioResponse>> usuarioMono = new UsuarioUseCase().criarNovoUsuario(getRequestFakeUsuario(), usuarioRepository, contaRepository);
 
-        assertNotNull(usuario);
-        assertInstanceOf(UsuarioResponse.class, usuario);
-        verify(usuarioRepository, times(1)).save(any());
+        StepVerifier.create(usuarioMono)
+                .expectNextMatches(usuario -> {
+                    assertNotNull(usuario.getBody());
+                    assertInstanceOf(UsuarioResponse.class, usuario.getBody());
+                    verify(usuarioRepository, times(1)).save(any());
+                    return true;
+                }).verifyComplete();
 
     }
 
@@ -58,9 +67,13 @@ public class UsuárioUseCaseTest {
                 "Nome do usuário",
                 "email@teste.com",
                 LocalDate.of(2000, 5, 19),
-                new ContaDomain(new ArrayList<>(), new ArrayList<>(), new ArrayList<>()),
+                getContaFake(),
                 LocalDateTime.now()
         );
+    }
+
+    private ContaDomain getContaFake() {
+        return new ContaDomain(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     }
 
 }

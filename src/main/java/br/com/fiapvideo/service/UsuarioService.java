@@ -19,7 +19,7 @@ public class UsuarioService {
     @Autowired
     private ContaRepository contaRepository;
 
-    public UsuarioResponse criarNovoUsuario(UsuarioRequest request) {
+    public Mono<ResponseEntity<UsuarioResponse>> criarNovoUsuario(UsuarioRequest request) {
         return new UsuarioUseCase().criarNovoUsuario(request, usuarioRepository, contaRepository);
     }
 }

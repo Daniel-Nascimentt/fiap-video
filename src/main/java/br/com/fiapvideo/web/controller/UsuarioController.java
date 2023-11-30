@@ -22,8 +22,7 @@ public class UsuarioController {
 
     @PostMapping
     public Mono<ResponseEntity<UsuarioResponse>> criarNovoUsuario(@RequestBody @Valid UsuarioRequest request){
-        return Mono.just(usuarioService.criarNovoUsuario(request))
-                .map(usuarioResponse -> ResponseEntity.status(HttpStatus.CREATED).body(usuarioResponse));
+        return usuarioService.criarNovoUsuario(request);
     }
 
 }

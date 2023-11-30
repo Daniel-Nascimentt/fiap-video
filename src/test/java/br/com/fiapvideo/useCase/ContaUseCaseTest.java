@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -25,15 +27,20 @@ public class ContaUseCaseTest {
     @DisplayName(value = "Deve criar uma conta.")
     @Test
     public void criarConta(){
-        when(contaRepository.save(any())).thenReturn(getContaFake());
+        when(contaRepository.save(any())).thenReturn(Mono.just(getContaFake()));
 
-        ContaDomain conta = new ContaUseCase().criarConta(contaRepository);
+        Mono<ContaDomain> contaMono = new ContaUseCase().criarConta(contaRepository);
 
-        assertNotNull(conta);
-        assertFalse(conta.getId().isEmpty());
-        assertTrue(conta.getFavoritos().isEmpty());
-        assertTrue(conta.getVideosAssistidos().isEmpty());
-        assertTrue(conta.getVideosPublicados().isEmpty());
+        StepVerifier.create(contaMono)
+                .expectNextMatches(conta -> {
+                    assertNotNull(conta);
+                    assertFalse(conta.getId().isEmpty());
+                    assertTrue(conta.getFavoritos().isEmpty());
+                    assertTrue(conta.getVideosAssistidos().isEmpty());
+                    assertTrue(conta.getVideosPublicados().isEmpty());
+                    return true;
+                })
+                .verifyComplete();
     }
 
     private ContaDomain getContaFake() {

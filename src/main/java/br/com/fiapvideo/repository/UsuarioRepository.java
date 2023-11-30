@@ -1,7 +1,7 @@
 package br.com.fiapvideo.repository;
 
 import br.com.fiapvideo.useCases.domain.UsuarioDomain;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 
-public interface UsuarioRepository extends MongoRepository<UsuarioDomain, String> {
+public interface UsuarioRepository extends ReactiveMongoRepository<UsuarioDomain, String> {
 }
