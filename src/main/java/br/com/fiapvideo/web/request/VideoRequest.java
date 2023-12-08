@@ -14,12 +14,6 @@ public class VideoRequest {
     @Size(min = 5)
     private String titulo;
 
-    @NotBlank(message = "O vídeo precisa ter uma URL.")
-    private String url;
-
-    @NotNull
-    private LocalDateTime dataPublicacao;
-
     @NotBlank(message = "O vídeo precisa ter uma categoria.")
     @Size(min = 5)
     private String categoria;

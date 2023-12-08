@@ -34,19 +34,23 @@ public class VideoDomain {
 
     private PerformanceDomain performance;
 
-    @NotNull(message = "O vídeo precisa ter uma categoria.")
-    private CategoriaDomain categoria;
+    @NotBlank(message = "O vídeo precisa ter uma categoria.")
+    private String categoria;
 
     @DBRef
     @NotNull(message = "O vídeo precisa ter um publicador.")
     private UsuarioDomain publicadoPor;
 
-    public VideoDomain(String titulo, String url, LocalDateTime dataPublicacao, PerformanceDomain performance, CategoriaDomain categoria, UsuarioDomain publicadoPor) {
+    public VideoDomain(String titulo, String url, LocalDateTime dataPublicacao, PerformanceDomain performance, String categoria, UsuarioDomain publicadoPor) {
         this.titulo = titulo;
         this.url = url;
         this.dataPublicacao = dataPublicacao;
         this.performance = performance;
         this.categoria = categoria;
         this.publicadoPor = publicadoPor;
+    }
+
+    public String getEmailPublicador(){
+        return publicadoPor.getEmail();
     }
 }
