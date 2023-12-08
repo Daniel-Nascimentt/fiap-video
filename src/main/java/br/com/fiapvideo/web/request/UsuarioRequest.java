@@ -1,5 +1,7 @@
 package br.com.fiapvideo.web.request;
 
+import br.com.fiapvideo.useCases.domain.UsuarioDomain;
+import br.com.fiapvideo.validator.UniqueValue;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
@@ -17,6 +19,7 @@ public class UsuarioRequest {
     private String nome;
 
     @Email(message = "O e-mail precisa ser válido.")
+    @UniqueValue(message = "Esse e-mail ja foi cadastrado!", domainClass = UsuarioDomain.class, fieldName = "email")
     private String email;
 
     @NotNull(message = "Preencha a data de nascimento.")

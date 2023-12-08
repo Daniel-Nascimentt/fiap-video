@@ -1,14 +1,14 @@
 package br.com.fiapvideo.useCases.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
 @Getter
 @Setter
-@Document
+@AllArgsConstructor
 public class PerformanceDomain {
 
     private List<Long> visualizacoes;

@@ -28,6 +28,10 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class UsuarioUseCaseTest {
 
+    private static final String NOME_FAKE_USER = "Nome do usuario";
+    private static final String EMAIL_FAKE_USER = "email@teste.com";
+    private static final LocalDate DATA_NASC_FAKE_USER = LocalDate.of(2000, 5, 19);
+
     @Mock
     private UsuarioRepository usuarioRepository;
 
@@ -45,6 +49,7 @@ public class UsuarioUseCaseTest {
         StepVerifier.create(usuarioMono)
                 .expectNextMatches(usuario -> {
                     assertNotNull(usuario);
+                    assertNotNull(usuario.getConta());
                     assertInstanceOf(UsuarioResponse.class, usuario);
                     verify(usuarioRepository, times(1)).save(any());
                     return true;
@@ -54,24 +59,22 @@ public class UsuarioUseCaseTest {
 
     private UsuarioRequest getRequestFakeUsuario() {
         return new UsuarioRequest(
-                "Nome do usuario",
-                "email@teste.com",
-                LocalDate.of(2000, 5, 19)
+                NOME_FAKE_USER,
+                EMAIL_FAKE_USER,
+                DATA_NASC_FAKE_USER
         );
     }
 
     private UsuarioDomain getFakeUsuario() {
         return new UsuarioDomain(
-                "Nome do usuario",
-                "email@teste.com",
-                LocalDate.of(2000, 5, 19),
-                getContaFake(),
+                NOME_FAKE_USER,
+                EMAIL_FAKE_USER,
+                DATA_NASC_FAKE_USER,
+                new ContaDomain(new ArrayList<>(), new ArrayList<>(), new ArrayList<>()),
                 LocalDateTime.now()
         );
     }
 
-    private ContaDomain getContaFake() {
-        return new ContaDomain(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
-    }
+
 
 }
