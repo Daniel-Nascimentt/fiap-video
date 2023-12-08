@@ -10,4 +10,8 @@ public class ContaUseCase {
     public Mono<ContaDomain> criarConta(ContaRepository contaRepository) {
         return contaRepository.save(new ContaDomain(new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
     }
+
+    public void removerConta(ContaDomain conta, ContaRepository contaRepository) {
+        contaRepository.delete(conta).subscribe();
+    }
 }

@@ -36,4 +36,8 @@ public class UsuarioService {
         Mono<UsuarioDomain> usuarioEncontrado = this.buscarPorEmail(emailAtual);
         return new UsuarioUseCase().atualizarUsuario(usuarioEncontrado, request, usuarioRepository);
     }
+
+    public void removerUsuarioPorEmail(String email) {
+       new UsuarioUseCase().removerUsuarioPorEmail(this.buscarPorEmail(email).block(), usuarioRepository, contaRepository);
+    }
 }

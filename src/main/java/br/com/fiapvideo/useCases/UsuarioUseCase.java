@@ -57,4 +57,9 @@ public class UsuarioUseCase {
 
         return usuario;
     }
+
+    public void removerUsuarioPorEmail(UsuarioDomain usuario, UsuarioRepository usuarioRepository, ContaRepository contaRepository) {
+        new ContaUseCase().removerConta(usuario.getConta(), contaRepository);
+        usuarioRepository.delete(usuario).subscribe();
+    }
 }
