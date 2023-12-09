@@ -1,5 +1,8 @@
 package br.com.fiapvideo.web.controller;
 
+import br.com.fiapvideo.constants.ConstantsFiapVideo;
+import br.com.fiapvideo.filters.FilterByTituloVideo;
+import br.com.fiapvideo.filters.FilterDefaultVideo;
 import br.com.fiapvideo.service.VideoService;
 import br.com.fiapvideo.web.request.VideoRequest;
 import br.com.fiapvideo.web.response.VideoResponse;
@@ -9,8 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/videos")
@@ -26,15 +27,24 @@ public class VideoController {
     }
 
     @GetMapping
-    public Flux<VideoResponse> buscarVideos(
-            @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "size", defaultValue = "10") int size,
-            @RequestParam(name = "sortBy", defaultValue = "dataPublicacao") String sortBy,
-            @RequestParam(name = "sortOrder", defaultValue = "desc") String sortOrder,
-            @RequestParam(name = "fieldFilter", required = false) String fieldFilter,
-            @RequestParam(name = "fieldValue", required = false) String fieldValue){
+    public Flux<VideoResponse> buscarVideosPorTitulo(
+            @RequestParam(name = "page", defaultValue = ConstantsFiapVideo.DEFAULT_VALUE_PAGE) int page,
+            @RequestParam(name = "size", defaultValue = ConstantsFiapVideo.DEFAULT_VALUE_SIZE) int size,
+            @RequestParam(name = "sortBy", defaultValue = ConstantsFiapVideo.DEFAULT_VALUE_SORTBY) String sortBy,
+            @RequestParam(name = "sortOrder", defaultValue = ConstantsFiapVideo.DEFAULT_VALUE_SORTORDER) String sortOrder){
 
-        return videoService.buscarVideos(page, size, sortBy, sortOrder, fieldFilter, fieldValue);
+        return videoService.buscarVideos(new FilterDefaultVideo(page, size, sortBy, sortOrder));
+    }
+
+    @GetMapping(value = "/buscarPorTitulo")
+    public Flux<VideoResponse> buscarVideosPorTitulo(
+            @RequestParam(name = "page", defaultValue = ConstantsFiapVideo.DEFAULT_VALUE_PAGE) int page,
+            @RequestParam(name = "size", defaultValue = ConstantsFiapVideo.DEFAULT_VALUE_SIZE) int size,
+            @RequestParam(name = "sortBy", defaultValue = ConstantsFiapVideo.DEFAULT_VALUE_SORTBY) String sortBy,
+            @RequestParam(name = "sortOrder", defaultValue = ConstantsFiapVideo.DEFAULT_VALUE_SORTORDER) String sortOrder,
+            @RequestParam(name = "titulo", required = true) String titulo){
+
+        return videoService.buscarVideos(new FilterByTituloVideo(page, size, sortBy, sortOrder, titulo));
     }
 
 }

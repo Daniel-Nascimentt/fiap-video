@@ -2,6 +2,7 @@ package br.com.fiapvideo.service;
 
 
 import br.com.fiapvideo.exceptions.UsuarioNotFoundException;
+import br.com.fiapvideo.filters.AbstractFilter;
 import br.com.fiapvideo.repository.VideoRepository;
 import br.com.fiapvideo.useCases.VideoUseCase;
 import br.com.fiapvideo.web.request.VideoRequest;
@@ -38,29 +39,14 @@ public class VideoService {
 
     }
 
-    public Flux<VideoResponse> buscarVideos(int page, int size, String sortBy, String sortOrder, String fieldFilter, String fieldValue) {
+    public Flux<VideoResponse> buscarVideos(AbstractFilter filter) {
 
-        Pageable pageable = construirPaginacaoOrdenada(page, size, sortBy, sortOrder);
+        Pageable pageable = filter.getPageableAndSort();
 
         Query query = new Query().with(pageable);
-
-        construirFiltroDeConsulta(fieldFilter, fieldValue, query);
+        query.addCriteria(filter.getCriteria());
 
         return new VideoUseCase().buscarVideosPaginados(reactiveMongoTemplate, query);
 
-    }
-
-    private void construirFiltroDeConsulta(String fieldFilter, String fieldValue, Query query) {
-        Criteria criteria = new Criteria();
-
-        if(fieldFilter != null && fieldValue != null && !fieldFilter.isEmpty() && !fieldValue.isEmpty()) {
-            criteria.and(fieldFilter).is(fieldValue);
-            query.addCriteria(criteria);
-        }
-    }
-
-    private Pageable construirPaginacaoOrdenada(int page, int size, String sortBy, String sortOrder) {
-        Sort.Direction direction = sortOrder.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
-        return PageRequest.of(page, size, Sort.by(direction, sortBy));
     }
 }
