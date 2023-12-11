@@ -1,12 +1,10 @@
 package br.com.fiapvideo.useCases.domain;
 
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -33,5 +31,17 @@ public class ContaDomain {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public void addAssistido(VideoDomain videoDomain) {
+        this.videosAssistidos.add(videoDomain);
+    }
+
+    public void addPublicado(VideoDomain video) {
+        this.videosPublicados.add(video);
+    }
+
+    public void addFavorito(VideoDomain videoDomain) {
+        this.favoritos.add(videoDomain);
     }
 }

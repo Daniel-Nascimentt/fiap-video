@@ -53,4 +53,5 @@ public class VideoDomain {
     public String getEmailPublicador(){
         return publicadoPor.getEmail();
     }
+
 }

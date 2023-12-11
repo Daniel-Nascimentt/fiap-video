@@ -62,4 +62,5 @@ public class UsuarioUseCase {
         new ContaUseCase().removerConta(usuario.getConta(), contaRepository);
         usuarioRepository.delete(usuario).subscribe();
     }
+
 }

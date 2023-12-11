@@ -1,6 +1,7 @@
 package br.com.fiapvideo.web.controller.advice;
 
 import br.com.fiapvideo.exceptions.UsuarioNotFoundException;
+import br.com.fiapvideo.exceptions.VideoNotFoundException;
 import br.com.fiapvideo.web.response.ErrorResponseDetails;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,12 @@ public class HandlerExceptions {
     @ExceptionHandler(UsuarioNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<?> usuarioNotFoundException(UsuarioNotFoundException ex){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(VideoNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<?> videoNotFoundException(VideoNotFoundException ex){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 

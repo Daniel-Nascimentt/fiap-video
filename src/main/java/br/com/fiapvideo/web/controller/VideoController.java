@@ -4,6 +4,7 @@ import br.com.fiapvideo.constants.ConstantsFiapVideo;
 import br.com.fiapvideo.filters.DynamicFilterVideo;
 import br.com.fiapvideo.service.VideoService;
 import br.com.fiapvideo.web.request.VideoRequest;
+import br.com.fiapvideo.web.request.EspectVideoRequest;
 import br.com.fiapvideo.web.response.VideoResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,18 @@ public class VideoController {
             @RequestParam(required = false) Map<String, String> parameters){
 
         return videoService.buscarVideosDinamicamente(new DynamicFilterVideo(page, size, sortBy, sortOrder, parameters));
+    }
+
+    @GetMapping(value = "/visualizar")
+    public ResponseEntity<?> visualizarVideo(@RequestBody @Valid EspectVideoRequest request){
+        videoService.visualizarVideo(request);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @PostMapping(value = "/favoritar")
+    public ResponseEntity<?> favoritarVideo(@RequestBody @Valid EspectVideoRequest request){
+        videoService.favoritarVideo(request);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 }

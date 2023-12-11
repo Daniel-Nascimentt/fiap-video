@@ -11,8 +11,9 @@ import java.util.List;
 @AllArgsConstructor
 public class PerformanceDomain {
 
-    private List<Long> visualizacoes;
+    private Long visualizacoes;
 
-    private List<Long> adicionadoFavoritos;
+    private Long marcadoFavorito;
+
 
 }
