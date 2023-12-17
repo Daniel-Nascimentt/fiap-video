@@ -2,10 +2,14 @@ package br.com.fiapvideo.web.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class VideoRequest {
 
     @NotBlank(message = "O vídeo precisa ter um título.")

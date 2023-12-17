@@ -20,7 +20,7 @@ public class VideoUseCase {
 
     private static final Long ADD_UNIQUE_VIEW = 1L;
     private static final Long ADD_UNIQUE_FAVORITADO = 1L;
-    private static String URL_BASE = "https://fiap-video.com/";
+    private final static String URL_BASE = "https://fiap-video.com/";
 
     public void criarVideo(@NotNull VideoRequest request, @NotNull UsuarioDomain usuario, @NotNull VideoRepository videoRepository, ContaRepository contaRepository){
 
