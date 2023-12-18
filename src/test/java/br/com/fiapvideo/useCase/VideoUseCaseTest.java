@@ -2,6 +2,7 @@ package br.com.fiapvideo.useCase;
 
 import br.com.fiapvideo.repository.ContaRepository;
 import br.com.fiapvideo.repository.VideoRepository;
+import br.com.fiapvideo.useCases.ContaUseCase;
 import br.com.fiapvideo.useCases.VideoUseCase;
 import br.com.fiapvideo.useCases.domain.ContaDomain;
 import br.com.fiapvideo.useCases.domain.PerformanceDomain;
@@ -12,6 +13,7 @@ import br.com.fiapvideo.web.response.VideoResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
@@ -25,6 +27,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -54,9 +59,15 @@ public class VideoUseCaseTest {
 
     @DisplayName(value = "Deve criar um video.")
     @Test
-    public void criarVideo(){
-        when(videoRepository.save(any())).thenReturn(Mono.empty());
+    public void criarVideo() {
+
+        VideoDomain videoDomain = getVideoFake();
+
+        when(videoRepository.save(any())).thenReturn(Mono.just(videoDomain));
+        when(contaRepository.save(any())).thenReturn(Mono.empty());
+
         new VideoUseCase().criarVideo(getVideoRequestFake(), getFakeUsuario(), videoRepository, contaRepository);
+
         verify(videoRepository, times(1)).save(any());
     }
 
@@ -80,6 +91,18 @@ public class VideoUseCaseTest {
         VideoDomain video = getVideoFake();
 
         new VideoUseCase().visualizarVideo(getFakeUsuario(), video, contaRepository, reactiveMongoTemplate);
+        verify(reactiveMongoTemplate, times(1)).updateFirst(any(Query.class), any(Update.class), any(Class.class));
+    }
+
+    @DisplayName(value = "Deve favoritar um vídeo")
+    @Test
+    public void favoritarVideo(){
+        when(reactiveMongoTemplate.updateFirst(any(Query.class), any(Update.class), any(Class.class))).thenReturn(Mono.empty());
+        when(contaRepository.save(any())).thenReturn(Mono.empty());
+
+        VideoDomain video = getVideoFake();
+
+        new VideoUseCase().favoritarVideo(getFakeUsuario(), video, contaRepository, reactiveMongoTemplate);
         verify(reactiveMongoTemplate, times(1)).updateFirst(any(Query.class), any(Update.class), any(Class.class));
     }
 
