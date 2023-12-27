@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -15,7 +16,8 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Document
+@Document(value = "usuarios")
+@NoArgsConstructor
 public class UsuarioDomain {
 
     @Id
@@ -45,4 +47,5 @@ public class UsuarioDomain {
         this.conta = conta;
         this.cadastradoEm = cadastradoEm;
     }
+
 }

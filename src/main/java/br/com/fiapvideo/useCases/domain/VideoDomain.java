@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@Document
+@Document(value = "videos")
 public class VideoDomain {
 
     @Id
@@ -49,11 +49,4 @@ public class VideoDomain {
         this.publicadoPor = publicadoPor;
     }
 
-    public String getEmailPublicador(){
-        return this.publicadoPor.getEmail();
-    }
-
-    public Long getQuantidadeViews() {
-        return this.performance.getVisualizacoes();
-    }
 }

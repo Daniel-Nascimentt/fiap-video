@@ -14,7 +14,7 @@ public class ContaUseCase {
     }
 
     public void removerConta(ContaDomain conta, ContaRepository contaRepository) {
-        contaRepository.delete(conta).subscribe();
+         contaRepository.delete(conta).subscribe();
     }
 
     public void addVideoHistoricoAssistido(ContaDomain conta, VideoDomain videoDomain, ContaRepository contaRepository) {
@@ -31,4 +31,5 @@ public class ContaUseCase {
         conta.addFavorito(videoDomain);
         contaRepository.save(conta).subscribe();
     }
+
 }

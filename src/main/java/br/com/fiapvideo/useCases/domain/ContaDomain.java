@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 
 @Getter
-@Document
+@Document(value = "contas")
 public class ContaDomain {
 
     @Id
@@ -44,4 +44,5 @@ public class ContaDomain {
     public void addFavorito(VideoDomain videoDomain) {
         this.favoritos.add(videoDomain);
     }
+
 }

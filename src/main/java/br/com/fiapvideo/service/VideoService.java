@@ -8,8 +8,6 @@ import br.com.fiapvideo.filters.conditions.VideoFilterConditions;
 import br.com.fiapvideo.repository.ContaRepository;
 import br.com.fiapvideo.repository.VideoRepository;
 import br.com.fiapvideo.useCases.VideoUseCase;
-import br.com.fiapvideo.useCases.domain.UsuarioDomain;
-import br.com.fiapvideo.useCases.domain.VideoDomain;
 import br.com.fiapvideo.web.request.VideoRequest;
 import br.com.fiapvideo.web.request.EspectVideoRequest;
 import br.com.fiapvideo.web.response.VideoResponse;
@@ -19,7 +17,6 @@ import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -38,12 +35,11 @@ public class VideoService {
     @Autowired
     private ReactiveMongoTemplate reactiveMongoTemplate;
 
-    @Transactional
-    public void criarVideo(@NotNull VideoRequest request) throws UsuarioNotFoundException {
+    public Mono<VideoResponse> criarVideo(@NotNull VideoRequest request) throws UsuarioNotFoundException {
 
-        usuarioService.buscarPorEmail(request.getPublicadoPor()).subscribe(user -> {
-            new VideoUseCase().criarVideo(request, user, videoRepository, contaRepository);
-       });
+        return usuarioService.buscarPorEmail(request.getPublicadoPor())
+                .flatMap(user -> new VideoUseCase().criarVideo(request, user, videoRepository, contaRepository))
+                .flatMap(videoDomain -> Mono.just(new VideoUseCase().toResponse(videoDomain)));
 
     }
 
@@ -58,17 +54,29 @@ public class VideoService {
 
     }
 
-    public void visualizarVideo(EspectVideoRequest request) throws UsuarioNotFoundException{
-        Mono<UsuarioDomain> usuario = usuarioService.buscarPorEmail(request.getEmailTelespectador());
-        Mono<VideoDomain> video = videoRepository.findById(request.getVideoId()).switchIfEmpty(Mono.error(new VideoNotFoundException()));
-
-        new VideoUseCase().visualizarVideo(usuario.block(), video.block(), contaRepository, reactiveMongoTemplate);
+    public Mono<Void> visualizarVideo(EspectVideoRequest request) {
+        return usuarioService.buscarPorEmail(request.getEmailTelespectador())
+                .switchIfEmpty(Mono.error(new UsuarioNotFoundException()))
+                .flatMap(usuarioDomain -> videoRepository.findById(request.getVideoId())
+                        .switchIfEmpty(Mono.error(new VideoNotFoundException()))
+                        .flatMap(videoDomain -> {
+                            new VideoUseCase().visualizarVideo(usuarioDomain, videoDomain, contaRepository, reactiveMongoTemplate);
+                            return Mono.empty();
+                        })
+                )
+                .then();
     }
 
-    public void favoritarVideo(EspectVideoRequest request) {
-        Mono<UsuarioDomain> usuario = usuarioService.buscarPorEmail(request.getEmailTelespectador());
-        Mono<VideoDomain> video = videoRepository.findById(request.getVideoId()).switchIfEmpty(Mono.error(new VideoNotFoundException()));
-
-        new VideoUseCase().favoritarVideo(usuario.block(), video.block(), contaRepository, reactiveMongoTemplate);
+    public Mono<Void> favoritarVideo(EspectVideoRequest request) {
+        return usuarioService.buscarPorEmail(request.getEmailTelespectador())
+                .switchIfEmpty(Mono.error(new UsuarioNotFoundException()))
+                .flatMap(usuarioDomain -> videoRepository.findById(request.getVideoId())
+                        .switchIfEmpty(Mono.error(new VideoNotFoundException()))
+                        .flatMap(videoDomain -> {
+                            new VideoUseCase().favoritarVideo(usuarioDomain, videoDomain, contaRepository, reactiveMongoTemplate);
+                            return Mono.empty();
+                        })
+                )
+                .then();
     }
 }

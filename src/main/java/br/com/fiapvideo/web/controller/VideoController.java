@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.util.Map;
 
@@ -23,9 +24,8 @@ public class VideoController {
     private VideoService videoService;
 
     @PostMapping
-    public ResponseEntity<?> criarVideo(@RequestBody @Valid VideoRequest request){
-        videoService.criarVideo(request);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public Mono<ResponseEntity<VideoResponse>> criarVideo(@RequestBody @Valid VideoRequest request){
+        return videoService.criarVideo(request).map(video -> ResponseEntity.status(HttpStatus.CREATED).body(video));
     }
 
     @GetMapping(value = "/buscar")
@@ -40,15 +40,13 @@ public class VideoController {
     }
 
     @GetMapping(value = "/visualizar")
-    public ResponseEntity<?> visualizarVideo(@RequestBody @Valid EspectVideoRequest request){
-        videoService.visualizarVideo(request);
-        return ResponseEntity.status(HttpStatus.OK).build();
+    public Mono<ResponseEntity<Void>> visualizarVideo(@RequestBody @Valid EspectVideoRequest request){
+        return videoService.visualizarVideo(request).map(result -> ResponseEntity.status(HttpStatus.NO_CONTENT).build());
     }
 
     @PostMapping(value = "/favoritar")
-    public ResponseEntity<?> favoritarVideo(@RequestBody @Valid EspectVideoRequest request){
-        videoService.favoritarVideo(request);
-        return ResponseEntity.status(HttpStatus.OK).build();
+    public Mono<ResponseEntity<Void>> favoritarVideo(@RequestBody @Valid EspectVideoRequest request){
+        return videoService.favoritarVideo(request).map(result -> ResponseEntity.status(HttpStatus.NO_CONTENT).build());
     }
 
 }

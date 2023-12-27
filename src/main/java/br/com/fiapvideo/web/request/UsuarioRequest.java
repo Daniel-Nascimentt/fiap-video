@@ -1,16 +1,19 @@
 package br.com.fiapvideo.web.request;
 
+import br.com.fiapvideo.config.LocalDateDeserializer;
 import br.com.fiapvideo.useCases.domain.UsuarioDomain;
 import br.com.fiapvideo.validator.UniqueValue;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class UsuarioRequest {
 
 
@@ -23,7 +26,7 @@ public class UsuarioRequest {
     private String email;
 
     @NotNull(message = "Preencha a data de nascimento.")
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     @Past(message = "A data de nascimento precisa estar no passado.")
     private LocalDate dataNascimento;
 

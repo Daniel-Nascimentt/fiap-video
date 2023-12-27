@@ -64,7 +64,6 @@ public class VideoUseCaseTest {
         VideoDomain videoDomain = getVideoFake();
 
         when(videoRepository.save(any())).thenReturn(Mono.just(videoDomain));
-        when(contaRepository.save(any())).thenReturn(Mono.empty());
 
         new VideoUseCase().criarVideo(getVideoRequestFake(), getFakeUsuario(), videoRepository, contaRepository);
 
@@ -115,8 +114,7 @@ public class VideoUseCaseTest {
                 video.getUrl(),
                 video.getDataPublicacao(),
                 video.getPerformance(),
-                video.getTitulo(),
-                video.getEmailPublicador()
+                video.getTitulo()
         );
     }
 

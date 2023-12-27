@@ -20,7 +20,10 @@ public class UsuarioController {
 
     @PostMapping
     public Mono<ResponseEntity<UsuarioResponse>> criarNovoUsuario(@RequestBody @Valid UsuarioRequest request){
-        return usuarioService.criarNovoUsuario(request).map(usuario -> ResponseEntity.status(HttpStatus.CREATED).body(usuario));
+
+        return usuarioService.criarNovoUsuario(request)
+                .map(user -> ResponseEntity.status(HttpStatus.CREATED).body(user))
+                .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
     @PutMapping
@@ -28,7 +31,8 @@ public class UsuarioController {
             @RequestParam(name = "emailAtual", required = true) String emailAtual,
             @RequestBody @Valid UsuarioRequest request){
 
-        return usuarioService.atualizarUsuario(emailAtual, request).map(usuario -> ResponseEntity.status(HttpStatus.OK).body(usuario));
+        return usuarioService.atualizarUsuario(emailAtual, request)
+                .map(usuario -> ResponseEntity.status(HttpStatus.OK).body(usuario));
 
     }
 
@@ -40,8 +44,8 @@ public class UsuarioController {
 
     @DeleteMapping
     public ResponseEntity<UsuarioResponse> removerUsuarioPorEmail(@RequestParam(name = "email", required = true) String email){
-        usuarioService.removerUsuarioPorEmail(email);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        usuarioService.removerUsuarioPorEmail(email).subscribe();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }

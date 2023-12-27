@@ -39,3 +39,15 @@ target
 secrets.yml
 .gradletasknamecache
 .sts4-cache
+/.idea/.gitignore
+/.idea/compiler.xml
+/src/main/java/br/com/fiapvideo/web/response/ContaResponse.java
+/.idea/encodings.xml
+/.idea/jarRepositories.xml
+/src/main/java/br/com/fiapvideo/config/LocalDateDeserializer.java
+/.idea/misc.xml
+/src/main/java/br/com/fiapvideo/filters/conditions/RecomendacaoFilterConditions.java
+/src/main/java/br/com/fiapvideo/useCases/RecomendacaoVideoUseCase.java
+/src/main/java/br/com/fiapvideo/useCases/ToResponse.java
+/.idea/uiDesigner.xml
+/.idea/vcs.xml
