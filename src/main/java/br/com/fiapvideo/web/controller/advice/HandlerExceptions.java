@@ -1,5 +1,6 @@
 package br.com.fiapvideo.web.controller.advice;
 
+import br.com.fiapvideo.exceptions.PublicadorNaoCorrespondeException;
 import br.com.fiapvideo.exceptions.UsuarioNotFoundException;
 import br.com.fiapvideo.exceptions.VideoNotFoundException;
 import br.com.fiapvideo.web.response.ErrorResponseDetails;
@@ -20,13 +21,13 @@ public class HandlerExceptions {
     @ExceptionHandler(UsuarioNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<?> usuarioNotFoundException(UsuarioNotFoundException ex){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponseDetails(ex.getMessage()));
     }
 
     @ExceptionHandler(VideoNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<?> videoNotFoundException(VideoNotFoundException ex){
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponseDetails(ex.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -41,6 +42,18 @@ public class HandlerExceptions {
                 HttpStatus.BAD_REQUEST.value(),
                 fieldsError,
                 new Date().getTime()));
+    }
+
+    @ExceptionHandler(PublicadorNaoCorrespondeException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<?> publicadorNaoCorrespondeException(PublicadorNaoCorrespondeException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponseDetails(ex.getMessage()));
+    }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<?> genericException(Exception ex){
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorResponseDetails(ex.getMessage()));
     }
 
 }

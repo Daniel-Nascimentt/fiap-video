@@ -1,14 +1,20 @@
 package br.com.fiapvideo.useCases;
 
+import br.com.fiapvideo.exceptions.PublicadorNaoCorrespondeException;
+import br.com.fiapvideo.exceptions.VideoNotFoundException;
 import br.com.fiapvideo.repository.ContaRepository;
 import br.com.fiapvideo.repository.VideoRepository;
+import br.com.fiapvideo.useCases.domain.ContaDomain;
 import br.com.fiapvideo.useCases.domain.PerformanceDomain;
 import br.com.fiapvideo.useCases.domain.UsuarioDomain;
 import br.com.fiapvideo.useCases.domain.VideoDomain;
 import br.com.fiapvideo.web.request.VideoRequest;
+import br.com.fiapvideo.web.response.ContaResponse;
+import br.com.fiapvideo.web.response.UsuarioResponse;
 import br.com.fiapvideo.web.response.VideoResponse;
 import jakarta.validation.constraints.NotNull;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -17,6 +23,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class VideoUseCase implements ToResponse<VideoDomain, VideoResponse> {
 
@@ -41,7 +48,7 @@ public class VideoUseCase implements ToResponse<VideoDomain, VideoResponse> {
 
     private String gerarUrlAPartirTitulo(String titulo) {
         String tituloSemEspaco = titulo.replace(" ", "");
-        return URL_BASE.concat(tituloSemEspaco);
+        return URL_BASE.concat(UUID.randomUUID().toString()).concat("/").concat(tituloSemEspaco);
     }
 
     public Flux<VideoResponse> buscarVideosPaginados(ReactiveMongoTemplate reactiveMongoTemplate, Query query) {
@@ -81,7 +88,54 @@ public class VideoUseCase implements ToResponse<VideoDomain, VideoResponse> {
     }
 
     @Override
-    public VideoResponse toResponseUpdate(VideoDomain domain) {
-        return null;
+    public VideoResponse toResponseUpdate(VideoDomain videoSaved) {
+
+        ModelMapper modelMapper = new ModelMapper();
+
+        TypeMap<UsuarioDomain, UsuarioResponse> typeMap = modelMapper.createTypeMap(UsuarioDomain.class, UsuarioResponse.class);
+
+        typeMap.addMappings(mapper -> {
+            mapper.skip(UsuarioResponse::setEmail);
+            mapper.skip(UsuarioResponse::setCadastradoEm);
+            mapper.skip(UsuarioResponse::setDataNascimento);
+            mapper.skip(UsuarioResponse::setNome);
+        });
+
+        return modelMapper.map(videoSaved, VideoResponse.class);
+
     }
+
+    public Mono<Void> excluirVideo(String videoId, VideoRepository videoRepository) {
+        Mono<VideoDomain> video = videoRepository.findById(videoId)
+                .switchIfEmpty(Mono.error(new VideoNotFoundException()));
+
+        return video.flatMap(videoRepository::delete);
+    }
+
+    public Mono<VideoResponse> atualizarVideo(VideoRequest request, String videoId, VideoRepository videoRepository) {
+        Mono<VideoDomain> video = videoRepository.findById(videoId).switchIfEmpty(Mono.error(new VideoNotFoundException()));
+
+        return validarPublicadorParaAtualizar(request, video)
+                .flatMap(videoRepository::save)
+                .map(this::toResponseUpdate);
+    }
+
+    private Mono<VideoDomain> validarPublicadorParaAtualizar(VideoRequest request, Mono<VideoDomain> video) {
+        return video.flatMap(videoDomain -> {
+            if (!videoDomain.getPublicadoPor().getEmail().equals(request.getPublicadoPor())) {
+                return Mono.error(new PublicadorNaoCorrespondeException("E-mail do publicador não corresponde."));
+            }
+            return Mono.just(this.atualizarAtributos(videoDomain, request));
+        });
+    }
+
+    private VideoDomain atualizarAtributos(VideoDomain videoDomain, VideoRequest request) {
+        videoDomain.setCategoria(request.getCategoria());
+        videoDomain.setTitulo(request.getTitulo());
+        videoDomain.setUrl(gerarUrlAPartirTitulo(request.getTitulo()));
+        videoDomain.setDataPublicacao(LocalDateTime.now());
+
+        return videoDomain;
+    }
+
 }

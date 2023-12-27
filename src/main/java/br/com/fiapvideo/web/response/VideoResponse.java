@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 public class VideoResponse {
 
+    private String id;
     private String titulo;
     private String categoria;
     private String url;
@@ -29,15 +30,11 @@ public class VideoResponse {
         this.titulo = titulo;
     }
 
-    public VideoResponse(String categoria, String url, LocalDateTime dataPublicacao, PerformanceDomain performance, String titulo, UsuarioResponse publicadoPor) {
-        this.categoria = categoria;
-        this.url = url;
-        this.dataPublicacao = dataPublicacao;
-        this.performance = performance;
-        this.titulo = titulo;
-        this.publicadoPor = publicadoPor;
-    }
 
+    /**
+     * Esse getter foi declarado para não gerar erro ao vonverter Domain para Response
+     * e resultar em um erro de dependencia ciclica.
+     */
     @JsonBackReference
     public UsuarioResponse getPublicadoPor() {
         return publicadoPor;

@@ -38,10 +38,8 @@ public class UsuarioService {
     }
 
     public Mono<Void> removerUsuarioPorEmail(String email) {
-
         return this.buscarPorEmail(email).flatMap(
                 user -> new UsuarioUseCase().removerUsuarioPorEmail(user, usuarioRepository, contaRepository)
         );
-
     }
 }

@@ -43,9 +43,8 @@ public class UsuarioController {
     }
 
     @DeleteMapping
-    public ResponseEntity<UsuarioResponse> removerUsuarioPorEmail(@RequestParam(name = "email", required = true) String email){
-        usuarioService.removerUsuarioPorEmail(email).subscribe();
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    public Mono<ResponseEntity<Void>> removerUsuarioPorEmail(@RequestParam(name = "email", required = true) String email){
+        return usuarioService.removerUsuarioPorEmail(email).map(result -> ResponseEntity.status(HttpStatus.NO_CONTENT).build());
     }
 
 }

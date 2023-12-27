@@ -49,4 +49,14 @@ public class VideoController {
         return videoService.favoritarVideo(request).map(result -> ResponseEntity.status(HttpStatus.NO_CONTENT).build());
     }
 
+    @DeleteMapping(value = "/{videoId}")
+    public Mono<ResponseEntity<Void>> excluirVideo(@PathVariable String videoId){
+        return videoService.excluirVideo(videoId).map(result -> ResponseEntity.status(HttpStatus.NO_CONTENT).build());
+    }
+
+    @PutMapping(value = "/{videoId}")
+    public Mono<ResponseEntity<VideoResponse>> atualizarVideo(@PathVariable String videoId, @RequestBody VideoRequest request){
+        return videoService.atualizarVideo(request, videoId).map(video -> ResponseEntity.status(HttpStatus.OK).body(video));
+    }
+
 }

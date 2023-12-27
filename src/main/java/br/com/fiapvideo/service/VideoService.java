@@ -79,4 +79,12 @@ public class VideoService {
                 )
                 .then();
     }
+
+    public Mono<Void> excluirVideo(String videoId) {
+        return new VideoUseCase().excluirVideo(videoId, videoRepository);
+    }
+
+    public Mono<VideoResponse> atualizarVideo(VideoRequest request, String videoId) {
+        return new VideoUseCase().atualizarVideo(request, videoId, videoRepository);
+    }
 }
