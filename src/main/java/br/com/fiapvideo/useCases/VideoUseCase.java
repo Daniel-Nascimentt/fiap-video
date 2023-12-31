@@ -4,12 +4,11 @@ import br.com.fiapvideo.exceptions.PublicadorNaoCorrespondeException;
 import br.com.fiapvideo.exceptions.VideoNotFoundException;
 import br.com.fiapvideo.repository.ContaRepository;
 import br.com.fiapvideo.repository.VideoRepository;
-import br.com.fiapvideo.useCases.domain.ContaDomain;
 import br.com.fiapvideo.useCases.domain.PerformanceDomain;
 import br.com.fiapvideo.useCases.domain.UsuarioDomain;
 import br.com.fiapvideo.useCases.domain.VideoDomain;
 import br.com.fiapvideo.web.request.VideoRequest;
-import br.com.fiapvideo.web.response.ContaResponse;
+import br.com.fiapvideo.web.response.RelatorioVideoResponse;
 import br.com.fiapvideo.web.response.UsuarioResponse;
 import br.com.fiapvideo.web.response.VideoResponse;
 import jakarta.validation.constraints.NotNull;
@@ -24,6 +23,9 @@ import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
 
 public class VideoUseCase implements ToResponse<VideoDomain, VideoResponse> {
 
@@ -136,6 +138,17 @@ public class VideoUseCase implements ToResponse<VideoDomain, VideoResponse> {
         videoDomain.setDataPublicacao(LocalDateTime.now());
 
         return videoDomain;
+    }
+
+    public Mono<RelatorioVideoResponse> calcularEstatisticasVideos(ReactiveMongoTemplate reactiveMongoTemplate) {
+        return reactiveMongoTemplate.aggregate(
+                newAggregation(VideoDomain.class,
+                        group().count().as("totalVideos")
+                                .sum("performance.marcadoFavorito").as("totalMarcadoFavorito")
+                                .sum("performance.visualizacoes").as("totalViews")
+                                .avg("performance.visualizacoes").as("mediaViewsPorVideo")
+                ), "videos", RelatorioVideoResponse.class
+        ).singleOrEmpty();
     }
 
 }

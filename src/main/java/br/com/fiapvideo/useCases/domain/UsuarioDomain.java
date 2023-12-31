@@ -48,4 +48,8 @@ public class UsuarioDomain {
         this.cadastradoEm = cadastradoEm;
     }
 
+    public VideoDomain ultimoVideoFavoritado(){
+        return this.conta.getUltimoFavorito();
+    }
+
 }

@@ -45,4 +45,7 @@ public class ContaDomain {
         this.favoritos.add(videoDomain);
     }
 
+    public VideoDomain getUltimoFavorito() {
+        return this.favoritos.get(this.favoritos.size() -1);
+    }
 }

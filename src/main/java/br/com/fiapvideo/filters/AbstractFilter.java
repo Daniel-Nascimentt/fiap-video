@@ -18,6 +18,8 @@ public abstract class AbstractFilter {
     private String sortBy;
     private String sortOrder;
 
+    public AbstractFilter(){}
+
     public AbstractFilter (int page, int size, String sortBy, String sortOrder, Map<String, String> parameters) {
         this.page = page;
         this.size = size;
@@ -32,6 +34,17 @@ public abstract class AbstractFilter {
 
         Sort.Direction direction = this.sortOrder.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
         return PageRequest.of(this.page, this.size, Sort.by(direction, this.sortBy));
+
+    }
+
+    public Pageable getDefaultPageableAndSort(){
+
+        Sort.Direction direction = Sort.Direction.ASC;
+
+        return PageRequest.of(
+                Integer.parseInt(ConstantsFiapVideo.DEFAULT_VALUE_PAGE),
+                Integer.parseInt(ConstantsFiapVideo.DEFAULT_VALUE_SIZE),
+                Sort.by(direction, ConstantsFiapVideo.SORTBY_VIDEOS_VIEWS));
 
     }
 

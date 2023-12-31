@@ -2,9 +2,11 @@ package br.com.fiapvideo.web.controller;
 
 import br.com.fiapvideo.constants.ConstantsFiapVideo;
 import br.com.fiapvideo.filters.DynamicFilterVideo;
+import br.com.fiapvideo.filters.RecomendacaoFilterVideo;
 import br.com.fiapvideo.service.VideoService;
 import br.com.fiapvideo.web.request.VideoRequest;
 import br.com.fiapvideo.web.request.EspectVideoRequest;
+import br.com.fiapvideo.web.response.RelatorioVideoResponse;
 import br.com.fiapvideo.web.response.VideoResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +59,16 @@ public class VideoController {
     @PutMapping(value = "/{videoId}")
     public Mono<ResponseEntity<VideoResponse>> atualizarVideo(@PathVariable String videoId, @RequestBody VideoRequest request){
         return videoService.atualizarVideo(request, videoId).map(video -> ResponseEntity.status(HttpStatus.OK).body(video));
+    }
+
+    @GetMapping(value = "/{emailUsuario}")
+    public Flux<VideoResponse> recomendarTop5Videos(@PathVariable String emailUsuario){
+        return videoService.recomendacaoTop5VideosPorCategoriaFavoritada(emailUsuario, new RecomendacaoFilterVideo());
+    }
+
+    @GetMapping(value = "/relatorio")
+    public Mono<RelatorioVideoResponse> calcularEstatisticasVideos(){
+        return videoService.calcularEstatisticasVideos();
     }
 
 }

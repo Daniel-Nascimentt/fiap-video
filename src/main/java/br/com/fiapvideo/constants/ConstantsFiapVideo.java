@@ -14,4 +14,5 @@ public class ConstantsFiapVideo {
     public static final String DEFAULT_VALUE_SORTORDER = "ASC";
     public static final List<String> FILTERS_TO_REMOVE_MAP_PAGE_SORT = Arrays.asList("page", "size", "sortBy", "sortOrder");
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public static final String SORTBY_VIDEOS_VIEWS = "performance.visualizacoes";
 }

@@ -4,15 +4,21 @@ package br.com.fiapvideo.service;
 import br.com.fiapvideo.exceptions.UsuarioNotFoundException;
 import br.com.fiapvideo.exceptions.VideoNotFoundException;
 import br.com.fiapvideo.filters.AbstractFilter;
+import br.com.fiapvideo.filters.conditions.RecomendacaoFilterConditions;
 import br.com.fiapvideo.filters.conditions.VideoFilterConditions;
 import br.com.fiapvideo.repository.ContaRepository;
 import br.com.fiapvideo.repository.VideoRepository;
+import br.com.fiapvideo.useCases.UsuarioUseCase;
 import br.com.fiapvideo.useCases.VideoUseCase;
+import br.com.fiapvideo.useCases.domain.UsuarioDomain;
+import br.com.fiapvideo.useCases.domain.VideoDomain;
 import br.com.fiapvideo.web.request.VideoRequest;
 import br.com.fiapvideo.web.request.EspectVideoRequest;
+import br.com.fiapvideo.web.response.RelatorioVideoResponse;
 import br.com.fiapvideo.web.response.VideoResponse;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
@@ -86,5 +92,25 @@ public class VideoService {
 
     public Mono<VideoResponse> atualizarVideo(VideoRequest request, String videoId) {
         return new VideoUseCase().atualizarVideo(request, videoId, videoRepository);
+    }
+
+    public Flux<VideoResponse> recomendacaoTop5VideosPorCategoriaFavoritada(String emailUsuario, AbstractFilter filter) {
+
+        Pageable pageable = filter.getDefaultPageableAndSort();
+
+        Query query = new Query().with(pageable);
+        query.limit(5).with(Sort.by(Sort.Direction.DESC, "performance.visualizacoes"));
+
+        usuarioService.buscarPorEmail(emailUsuario)
+                .doOnNext(user -> {
+                    query.addCriteria(filter.getCriteria(new RecomendacaoFilterConditions(user.getId(), user.ultimoVideoFavoritado())));
+                });
+
+        return new VideoUseCase().buscarVideosPaginados(reactiveMongoTemplate, query);
+
+    }
+
+    public Mono<RelatorioVideoResponse> calcularEstatisticasVideos(){
+        return new VideoUseCase().calcularEstatisticasVideos(this.reactiveMongoTemplate);
     }
 }
