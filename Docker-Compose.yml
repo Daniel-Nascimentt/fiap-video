@@ -1,0 +1,19 @@
+services:
+  meu-mongo:
+    container_name: mongo-db-fiap-video
+    image: mongo:latest
+    ports:
+      - 27018:27017
+
+
+  fiap-video:
+    container_name: fiap-video-application
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      MONGO_HOST: "mongodb://meu-mongo:27017/fiap-video"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - meu-mongo
