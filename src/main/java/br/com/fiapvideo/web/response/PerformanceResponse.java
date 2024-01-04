@@ -1,18 +1,17 @@
-package br.com.fiapvideo.useCases.domain;
+package br.com.fiapvideo.web.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
+@Setter
 @AllArgsConstructor
-public class PerformanceDomain {
+@NoArgsConstructor
+public class PerformanceResponse {
 
     private Long visualizacoes;
 
     private Long marcadoFavorito;
-
-
 }

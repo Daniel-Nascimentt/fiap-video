@@ -1,7 +1,5 @@
 package br.com.fiapvideo.web.response;
 
-import br.com.fiapvideo.useCases.domain.CategoriaDomain;
-import br.com.fiapvideo.useCases.domain.PerformanceDomain;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,10 +17,10 @@ public class VideoResponse {
     private String categoria;
     private String url;
     private LocalDateTime dataPublicacao;
-    private PerformanceDomain performance;
+    private PerformanceResponse performance;
     private UsuarioResponse publicadoPor;
 
-    public VideoResponse(String categoria, String url, LocalDateTime dataPublicacao, PerformanceDomain performance, String titulo) {
+    public VideoResponse(String categoria, String url, LocalDateTime dataPublicacao, PerformanceResponse performance, String titulo) {
         this.categoria = categoria;
         this.url = url;
         this.dataPublicacao = dataPublicacao;

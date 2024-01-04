@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
 public class VideoRequest {
 
     @NotBlank(message = "O vídeo precisa ter um título.")

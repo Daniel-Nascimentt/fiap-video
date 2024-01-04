@@ -5,15 +5,13 @@ import br.com.fiapvideo.repository.ContaRepository;
 import br.com.fiapvideo.repository.UsuarioRepository;
 import br.com.fiapvideo.useCases.domain.ContaDomain;
 import br.com.fiapvideo.useCases.domain.UsuarioDomain;
-import br.com.fiapvideo.useCases.domain.VideoDomain;
 import br.com.fiapvideo.web.request.UsuarioRequest;
 import br.com.fiapvideo.web.response.ContaResponse;
+import br.com.fiapvideo.web.response.ToResponse;
 import br.com.fiapvideo.web.response.UsuarioResponse;
-import br.com.fiapvideo.web.response.VideoResponse;
 import jakarta.validation.constraints.NotNull;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
-import org.modelmapper.convention.MatchingStrategies;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;

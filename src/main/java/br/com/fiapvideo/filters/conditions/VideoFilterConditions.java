@@ -3,7 +3,7 @@ package br.com.fiapvideo.filters.conditions;
 import br.com.fiapvideo.constants.ConstantsFiapVideo;
 import org.springframework.data.mongodb.core.query.Criteria;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Map;
 
 public class VideoFilterConditions implements FilterConditions{
@@ -29,7 +29,7 @@ public class VideoFilterConditions implements FilterConditions{
 
         if (this.titulo != null) criteria.and(FIELD_TITULO).is(this.titulo);
         if (this.categoria != null) criteria.and(FIELD_CATEGORIA).is(this.categoria);
-        if (this.dataPublicacao != null) criteria.and(FIELD_DATAPUBLICACAO).gte(LocalDateTime.parse(dataPublicacao, ConstantsFiapVideo.DATE_TIME_FORMATTER));
+        if (this.dataPublicacao != null) criteria.and(FIELD_DATAPUBLICACAO).gte(LocalDate.parse(dataPublicacao, ConstantsFiapVideo.DATE_TIME_FORMATTER));
 
     }
 

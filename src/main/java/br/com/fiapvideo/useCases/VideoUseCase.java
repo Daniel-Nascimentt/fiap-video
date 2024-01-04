@@ -8,12 +8,11 @@ import br.com.fiapvideo.useCases.domain.PerformanceDomain;
 import br.com.fiapvideo.useCases.domain.UsuarioDomain;
 import br.com.fiapvideo.useCases.domain.VideoDomain;
 import br.com.fiapvideo.web.request.VideoRequest;
-import br.com.fiapvideo.web.response.RelatorioVideoResponse;
-import br.com.fiapvideo.web.response.UsuarioResponse;
-import br.com.fiapvideo.web.response.VideoResponse;
+import br.com.fiapvideo.web.response.*;
 import jakarta.validation.constraints.NotNull;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
+import org.modelmapper.spi.MappingContext;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -85,6 +84,11 @@ public class VideoUseCase implements ToResponse<VideoDomain, VideoResponse> {
     @Override
     public VideoResponse toResponse(VideoDomain videoSaved) {
         ModelMapper modelMapper = new ModelMapper();
+
+        modelMapper.typeMap(PerformanceDomain.class, PerformanceResponse.class)
+                .addMapping(PerformanceDomain::getMarcadoFavorito, PerformanceResponse::setMarcadoFavorito)
+                .addMapping(PerformanceDomain::getVisualizacoes, PerformanceResponse::setVisualizacoes)
+                .setPostConverter(MappingContext::getDestination);
 
         return modelMapper.map(videoSaved, VideoResponse.class);
     }

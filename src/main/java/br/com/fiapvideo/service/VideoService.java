@@ -101,12 +101,13 @@ public class VideoService {
         Query query = new Query().with(pageable);
         query.limit(5).with(Sort.by(Sort.Direction.DESC, "performance.visualizacoes"));
 
-        usuarioService.buscarPorEmail(emailUsuario)
-                .doOnNext(user -> {
+        return usuarioService.buscarPorEmail(emailUsuario)
+                .flatMapMany(user -> {
                     query.addCriteria(filter.getCriteria(new RecomendacaoFilterConditions(user.getId(), user.ultimoVideoFavoritado())));
+                    return new VideoUseCase().buscarVideosPaginados(reactiveMongoTemplate, query);
                 });
 
-        return new VideoUseCase().buscarVideosPaginados(reactiveMongoTemplate, query);
+
 
     }
 
