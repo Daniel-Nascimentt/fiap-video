@@ -44,7 +44,7 @@ public class UsuarioController {
 
     @DeleteMapping
     public Mono<ResponseEntity<Void>> removerUsuarioPorEmail(@RequestParam(name = "email", required = true) String email){
-        return usuarioService.removerUsuarioPorEmail(email).map(result -> ResponseEntity.status(HttpStatus.NO_CONTENT).build());
+        return usuarioService.removerUsuarioPorEmail(email).then(Mono.fromCallable(() -> ResponseEntity.status(HttpStatus.NO_CONTENT).build()));
     }
 
 }

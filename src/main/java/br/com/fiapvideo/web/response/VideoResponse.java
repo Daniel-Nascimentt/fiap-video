@@ -20,20 +20,12 @@ public class VideoResponse {
     private PerformanceResponse performance;
     private UsuarioResponse publicadoPor;
 
-    public VideoResponse(String categoria, String url, LocalDateTime dataPublicacao, PerformanceResponse performance, String titulo) {
-        this.categoria = categoria;
-        this.url = url;
-        this.dataPublicacao = dataPublicacao;
-        this.performance = performance;
-        this.titulo = titulo;
-    }
-
-
     /**
      * Esse getter foi declarado para não gerar erro ao vonverter Domain para Response
      * e resultar em um erro de dependencia ciclica.
      */
     @JsonBackReference
+    @Deprecated
     public UsuarioResponse getPublicadoPor() {
         return publicadoPor;
     }

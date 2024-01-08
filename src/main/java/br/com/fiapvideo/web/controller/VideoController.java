@@ -43,17 +43,17 @@ public class VideoController {
 
     @GetMapping(value = "/visualizar")
     public Mono<ResponseEntity<Void>> visualizarVideo(@RequestBody @Valid EspectVideoRequest request){
-        return videoService.visualizarVideo(request).map(result -> ResponseEntity.status(HttpStatus.NO_CONTENT).build());
+        return videoService.visualizarVideo(request).then(Mono.fromCallable(() -> ResponseEntity.status(HttpStatus.NO_CONTENT).build()));
     }
 
     @PostMapping(value = "/favoritar")
     public Mono<ResponseEntity<Void>> favoritarVideo(@RequestBody @Valid EspectVideoRequest request){
-        return videoService.favoritarVideo(request).map(result -> ResponseEntity.status(HttpStatus.NO_CONTENT).build());
+        return videoService.favoritarVideo(request).then(Mono.fromCallable(() -> ResponseEntity.status(HttpStatus.NO_CONTENT).build()));
     }
 
     @DeleteMapping(value = "/{videoId}")
     public Mono<ResponseEntity<Void>> excluirVideo(@PathVariable String videoId){
-        return videoService.excluirVideo(videoId).map(result -> ResponseEntity.status(HttpStatus.NO_CONTENT).build());
+        return videoService.excluirVideo(videoId).then(Mono.fromCallable(() -> ResponseEntity.status(HttpStatus.NO_CONTENT).build()));
     }
 
     @PutMapping(value = "/{videoId}")

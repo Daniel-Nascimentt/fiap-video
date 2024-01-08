@@ -7,7 +7,6 @@ import lombok.Setter;
 
 @NoArgsConstructor
 @Getter
-@Setter
 public class RelatorioVideoResponse {
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)

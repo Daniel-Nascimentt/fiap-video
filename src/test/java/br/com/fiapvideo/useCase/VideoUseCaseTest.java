@@ -231,21 +231,6 @@ public class VideoUseCaseTest {
 
     }
 
-
-    private VideoResponse getVideoResponseFake(){
-
-        VideoDomain video = getVideoFake();
-
-        return new VideoResponse(
-                video.getCategoria(),
-                video.getUrl(),
-                video.getDataPublicacao(),
-                new PerformanceResponse(0L, 0L),
-                video.getTitulo()
-        );
-    }
-
-
     private VideoRequest getVideoRequestFake() {
         return new VideoRequest(
                 VIDEO_FAKE_TITULO,
