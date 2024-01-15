@@ -22,8 +22,7 @@ public class UsuarioController {
     public Mono<ResponseEntity<UsuarioResponse>> criarNovoUsuario(@RequestBody @Valid UsuarioRequest request){
 
         return usuarioService.criarNovoUsuario(request)
-                .map(user -> ResponseEntity.status(HttpStatus.CREATED).body(user))
-                .defaultIfEmpty(ResponseEntity.notFound().build());
+                .map(user -> ResponseEntity.status(HttpStatus.CREATED).body(user));
     }
 
     @PutMapping

@@ -40,6 +40,15 @@ public class UsuarioDomain {
     @NotNull(message = "Precisa de uma data de cadastro")
     private LocalDateTime cadastradoEm;
 
+    public UsuarioDomain(String id, String nome, String email, LocalDate dataNascimento, ContaDomain conta, LocalDateTime cadastradoEm) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.dataNascimento = dataNascimento;
+        this.conta = conta;
+        this.cadastradoEm = cadastradoEm;
+    }
+
     public UsuarioDomain(String nome, String email, LocalDate dataNascimento, ContaDomain conta, LocalDateTime cadastradoEm) {
         this.nome = nome;
         this.email = email;

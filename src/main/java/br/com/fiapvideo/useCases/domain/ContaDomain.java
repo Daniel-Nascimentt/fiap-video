@@ -1,6 +1,8 @@
 package br.com.fiapvideo.useCases.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -8,7 +10,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 
 @Getter
+@Setter
 @Document(value = "contas")
+@NoArgsConstructor /*Para uso do Spring Data*/
 public class ContaDomain {
 
     @Id
@@ -22,6 +26,13 @@ public class ContaDomain {
 
     @DBRef
     private List<VideoDomain> favoritos;
+
+    public ContaDomain(String id, List<VideoDomain> videosPublicados, List<VideoDomain> videosAssistidos, List<VideoDomain> favoritos) {
+        this.id = id;
+        this.videosPublicados = videosPublicados;
+        this.videosAssistidos = videosAssistidos;
+        this.favoritos = favoritos;
+    }
 
     public ContaDomain(List<VideoDomain> videosPublicados, List<VideoDomain> videosAssistidos, List<VideoDomain> favoritos) {
         this.videosPublicados = videosPublicados;
