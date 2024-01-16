@@ -8,10 +8,7 @@ import br.com.fiapvideo.filters.conditions.RecomendacaoFilterConditions;
 import br.com.fiapvideo.filters.conditions.VideoFilterConditions;
 import br.com.fiapvideo.repository.ContaRepository;
 import br.com.fiapvideo.repository.VideoRepository;
-import br.com.fiapvideo.useCases.UsuarioUseCase;
 import br.com.fiapvideo.useCases.VideoUseCase;
-import br.com.fiapvideo.useCases.domain.UsuarioDomain;
-import br.com.fiapvideo.useCases.domain.VideoDomain;
 import br.com.fiapvideo.web.request.VideoRequest;
 import br.com.fiapvideo.web.request.EspectVideoRequest;
 import br.com.fiapvideo.web.response.RelatorioVideoResponse;
@@ -94,7 +91,7 @@ public class VideoService {
         return new VideoUseCase().atualizarVideo(request, videoId, videoRepository);
     }
 
-    public Flux<VideoResponse> recomendacaoTop5VideosPorCategoriaFavoritada(String emailUsuario, AbstractFilter filter) {
+    public Flux<VideoResponse> recomendacaoTopVideosPorCategoriaFavoritada(String emailUsuario, AbstractFilter filter) {
 
         Pageable pageable = filter.getDefaultPageableAndSort();
 

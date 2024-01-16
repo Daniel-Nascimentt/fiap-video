@@ -38,7 +38,7 @@ import static org.mockito.Mockito.when;
 public class VideoControllerTest {
 
     private final static String FAKE_EMAIL_USER = "user@teste.com";
-    private static final String FAKE_NAME_USER = "Nome do usuario";;
+    private static final String FAKE_NAME_USER = "Nome do usuario";
     private static final LocalDate FAKE_DATA_NASC_USER = LocalDate.of(2000, 5, 19);
     private static final String VIDEO_FAKE_TITULO = "Fake Video";
     private static final String VIDEO_FAKE_URL = "http://fake.com/video";
@@ -152,7 +152,7 @@ public class VideoControllerTest {
         Flux<VideoResponse> responseFlux = Flux.just();
 
         // simula retorno para validação apenas do endpoint
-        when(videoService.recomendacaoTop5VideosPorCategoriaFavoritada(any(), any())).thenReturn(responseFlux);
+        when(videoService.recomendacaoTopVideosPorCategoriaFavoritada(any(), any())).thenReturn(responseFlux);
 
         webTestClient.get()
                 .uri("/videos/{emailUsuario}", FAKE_EMAIL_USER)

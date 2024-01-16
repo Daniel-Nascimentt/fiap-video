@@ -25,12 +25,13 @@ public class VideoFilterConditions implements FilterConditions{
     }
 
     @Override
-    public void constructCriteriaConditions(Criteria criteria) {
+    public Criteria constructCriteriaConditions(Criteria criteria) {
 
         if (this.titulo != null) criteria.and(FIELD_TITULO).is(this.titulo);
         if (this.categoria != null) criteria.and(FIELD_CATEGORIA).is(this.categoria);
         if (this.dataPublicacao != null) criteria.and(FIELD_DATAPUBLICACAO).gte(LocalDate.parse(dataPublicacao, ConstantsFiapVideo.DATE_TIME_FORMATTER));
 
+        return criteria;
     }
 
 

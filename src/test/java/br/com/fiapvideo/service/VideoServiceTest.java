@@ -251,7 +251,7 @@ public class VideoServiceTest {
         when(usuarioService.buscarPorEmail(anyString())).thenReturn(Mono.just(usuarioDomain));
         when(reactiveMongoTemplate.find(any(), any())).thenReturn(Flux.just(getVideoFake(), getVideoFake()));
 
-        Flux<VideoResponse> videoResponseFlux = videoService.recomendacaoTop5VideosPorCategoriaFavoritada(FAKE_EMAIL_USER, new RecomendacaoFilterVideo());
+        Flux<VideoResponse> videoResponseFlux = videoService.recomendacaoTopVideosPorCategoriaFavoritada(FAKE_EMAIL_USER, new RecomendacaoFilterVideo());
 
         StepVerifier.create(videoResponseFlux)
                 .expectNextCount(2).verifyComplete();

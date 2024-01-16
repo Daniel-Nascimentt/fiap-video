@@ -62,8 +62,8 @@ public class VideoController {
     }
 
     @GetMapping(value = "/{emailUsuario}")
-    public Flux<VideoResponse> recomendarTop5Videos(@PathVariable String emailUsuario){
-        return videoService.recomendacaoTop5VideosPorCategoriaFavoritada(emailUsuario, new RecomendacaoFilterVideo());
+    public Flux<VideoResponse> recomendarTopVideos(@PathVariable String emailUsuario){
+        return videoService.recomendacaoTopVideosPorCategoriaFavoritada(emailUsuario, new RecomendacaoFilterVideo());
     }
 
     @GetMapping(value = "/relatorio")

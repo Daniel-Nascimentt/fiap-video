@@ -9,8 +9,6 @@ public class RecomendacaoFilterVideo extends AbstractFilter{
     public Criteria getCriteria(FilterConditions filterConditions) {
         Criteria criteria = new Criteria();
 
-        filterConditions.constructCriteriaConditions(criteria);
-
-        return criteria;
+        return filterConditions.constructCriteriaConditions(criteria);
     }
 }

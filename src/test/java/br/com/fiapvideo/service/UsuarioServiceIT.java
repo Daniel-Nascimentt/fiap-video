@@ -1,7 +1,6 @@
-package br.com.fiapvideo.repository;
+package br.com.fiapvideo.service;
 
-import br.com.fiapvideo.it.config.MongoDBContainerConfig;
-import br.com.fiapvideo.service.UsuarioService;
+import br.com.fiapvideo.integration.config.MongoDBContainerConfig;
 import br.com.fiapvideo.useCases.domain.ContaDomain;
 import br.com.fiapvideo.useCases.domain.UsuarioDomain;
 import br.com.fiapvideo.web.request.UsuarioRequest;
@@ -10,11 +9,8 @@ import br.com.fiapvideo.web.response.UsuarioResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo;
-import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
 import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import reactor.test.StepVerifier;
@@ -23,11 +19,9 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers(disabledWithoutDocker = true)
 @ActiveProfiles("test")
-@EnableReactiveMongoRepositories
-@AutoConfigureDataMongo
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UsuarioServiceIT extends MongoDBContainerConfig {
 
     private static final String NOME_FAKE_USER_REQUEST = "Nome do usuario request";

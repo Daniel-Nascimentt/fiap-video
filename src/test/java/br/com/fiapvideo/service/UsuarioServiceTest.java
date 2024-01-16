@@ -31,7 +31,7 @@ import static org.mockito.Mockito.*;
 public class UsuarioServiceTest {
 
     private final static String FAKE_EMAIL_USER = "user@teste.com";
-    private static final String FAKE_NAME_USER = "Nome do usuario";;
+    private static final String FAKE_NAME_USER = "Nome do usuario";
     private static final LocalDate FAKE_DATA_NASC_USER = LocalDate.of(2000, 5, 19);
 
     @Mock
