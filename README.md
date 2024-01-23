@@ -9,11 +9,11 @@ Execute o seguinte comando para subir o mongodb em um container:
 #
 
 # Fluxos principais do usuário:
-![image](https://github.com/Daniel-Nascimentt/fiap-video/assets/65513073/a2d30904-fea3-4ac3-96f1-015b10211c90)
+![image](https://github.com/Daniel-Nascimentt/fiap-video/assets/65513073/a1c38a60-0154-4008-bbb0-78c7b5094d72)
 #
 
 # Fluxos principais / Funcionalidades da API:
-![image](https://github.com/Daniel-Nascimentt/fiap-video/assets/65513073/1d37669e-0787-4339-98c5-a663a238a2ab)
+![image](https://github.com/Daniel-Nascimentt/fiap-video/assets/65513073/956d6bfe-fa1f-4aec-b5a4-1d9f4f20137b)
 #
 
 
