@@ -103,14 +103,23 @@ public class VideoControllerTest {
     @DisplayName(value = "Deve validar endpoint que favoria um video retornando um status code 204.")
     @Test
     void favoritarVideo() throws Exception {
-        EspectVideoRequest request = new EspectVideoRequest("idFakeVideo", FAKE_EMAIL_USER);
 
         when(videoService.favoritarVideo(any())).thenReturn(Mono.empty());
 
         webTestClient.post()
-                .uri("/videos/favoritar")
-                .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(objectMapper.writeValueAsString(request))
+                .uri("/videos/favoritar?videoId={videoId}&emailTelespectador={emailTelespectador}", UUID.randomUUID().toString(), FAKE_EMAIL_USER)
+                .exchange()
+                .expectStatus().isNoContent();
+    }
+
+    @DisplayName(value = "Deve validar endpoint que visualiza um video retornando um status code 204.")
+    @Test
+    void visualizarVideo() throws Exception {
+
+        when(videoService.visualizarVideo(any())).thenReturn(Mono.empty());
+
+        webTestClient.get()
+                .uri("/videos/visualizar?videoId={videoId}&emailTelespectador={emailTelespectador}", UUID.randomUUID().toString(), FAKE_EMAIL_USER)
                 .exchange()
                 .expectStatus().isNoContent();
     }

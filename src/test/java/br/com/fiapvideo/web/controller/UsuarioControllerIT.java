@@ -6,6 +6,7 @@ import br.com.fiapvideo.web.response.UsuarioResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,22 +36,40 @@ public class UsuarioControllerIT extends MongoDBContainerConfig {
     @Autowired
     private WebTestClient webTestClient;
 
+    @Autowired
+    private ObjectMapper mapper;
+
+    @BeforeEach
+    public void setup(){
+        mapper.registerModule(new JavaTimeModule());
+    }
+
     @DisplayName(value = "Deve fazer requisção para criar um novo usuário no banco de dados.")
     @Test
-    public void testEndpointCriarUsuario() {
-        webTestClient.post()
+    public void testEndpointCriarUsuario() throws JsonProcessingException {
+        String json = webTestClient.post()
                 .uri("/usuarios")
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(getRequestFakeUsuario()), UsuarioRequest.class)
                 .exchange()
-                .expectStatus().isCreated();
+                .expectStatus().isCreated()
+                .expectBody(String.class)
+                .returnResult()
+                .getResponseBody();
+
+        UsuarioResponse response = mapper.readValue(json, UsuarioResponse.class);
+
+        assertNotNull(response);
+        assertNotNull(response.getConta());
+        assertTrue(response.getConta().getFavoritos().isEmpty());
+        assertTrue(response.getConta().getVideosAssistidos().isEmpty());
+        assertTrue(response.getConta().getVideosPublicados().isEmpty());
+
     }
 
     @DisplayName(value = "Deve fazer requisição para criar um usuário e depois apaga-lo.")
     @Test
     public void testEndpointCriarEApagarUsuario() {
-
-
 
         webTestClient.post()
                 .uri("/usuarios")
@@ -82,9 +101,6 @@ public class UsuarioControllerIT extends MongoDBContainerConfig {
                 .returnResult()
                 .getResponseBody();
 
-
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
         UsuarioResponse response = mapper.readValue(json, UsuarioResponse.class);
 
         assertNotNull(response);
@@ -125,9 +141,6 @@ public class UsuarioControllerIT extends MongoDBContainerConfig {
                 .returnResult()
                 .getResponseBody();
 
-
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
         UsuarioResponse response = mapper.readValue(json, UsuarioResponse.class);
 
         assertNotNull(response);

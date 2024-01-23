@@ -42,12 +42,12 @@ public class VideoController {
     }
 
     @GetMapping(value = "/visualizar")
-    public Mono<ResponseEntity<Void>> visualizarVideo(@RequestBody @Valid EspectVideoRequest request){
+    public Mono<ResponseEntity<Void>> visualizarVideo(@Valid EspectVideoRequest request){
         return videoService.visualizarVideo(request).then(Mono.fromCallable(() -> ResponseEntity.status(HttpStatus.NO_CONTENT).build()));
     }
 
     @PostMapping(value = "/favoritar")
-    public Mono<ResponseEntity<Void>> favoritarVideo(@RequestBody @Valid EspectVideoRequest request){
+    public Mono<ResponseEntity<Void>> favoritarVideo(@Valid EspectVideoRequest request){
         return videoService.favoritarVideo(request).then(Mono.fromCallable(() -> ResponseEntity.status(HttpStatus.NO_CONTENT).build()));
     }
 

@@ -30,10 +30,6 @@ public class UsuarioServiceIT extends MongoDBContainerConfig {
     private static final String EMAIL_FAKE_USER_REQUEST = "usuario-service@teste.com";
     private static final LocalDate DATA_NASC_FAKE_USER = LocalDate.of(2000, 5, 19);
 
-
-    @LocalServerPort
-    int port;
-
     @Autowired
     private UsuarioService usuarioService;
 
