@@ -38,7 +38,10 @@
 
 1º Faça o clone do projeto.
 
-2º Execute o seguinte comando para subir a infra do projeto:
+2º Gere o .jar executando o comando (Pulando os testes para ser mais rapido, mas fique avontade para retirar o "-DskipTests"):
+> mvn clean install -DskipTests
+
+3º Execute o seguinte comando para subir a infra do projeto:
 >  docker-compose up
 
 #
