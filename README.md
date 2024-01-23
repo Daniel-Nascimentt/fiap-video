@@ -54,4 +54,9 @@
 ![image](https://github.com/Daniel-Nascimentt/fiap-video/assets/65513073/14136ee7-9f7c-4c65-b0c9-64d6fc47d2ed)
 #
 
+# Swagger
+
+Link para swagger:
+> http://localhost:8080/fiap-video/swagger-ui/index.html#/
+
 
