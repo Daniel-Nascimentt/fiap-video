@@ -6,6 +6,8 @@
 * [Start](#start)
 * [Decisoes](#decisoes)
 * [Fluxos principais](#fluxosPrincipais)
+* [Cobertura de testes de unidade](#coberturaDeTestesDeUnidade)
+* [Testes integrados](#testesIntegrados)
 * [Swagger](#swagger)
 * [Postman Collection](#postmanCollection)
 
