@@ -1,7 +1,40 @@
-# fiap-video
-Projeto de uma API de vídeo como desafio da POS Tech - 4ª Fase
+# FIAP VIDEO - Tech challenge Arquitetura e desenvolvimento Java - Fase4
 
-# Inicialização:
+# ÍNDICE
+
+* [Tecnologias](#tecnologias)
+* [Start](#start)
+* [Decisoes](#decisoes)
+* [Fluxos principais](#fluxosPrincipais)
+* [Swagger](#swagger)
+* [Postman Collection](#postmanCollection)
+
+# 
+
+# Tecnologias 👨🏻‍💻 
+
+* Arquitetura: Micro services
+* Dependencias
+    * Java 17 (Padrão Spring Initializr)
+    * Spring boot 3.1.5 (Padrão Spring Initializr)
+    * DevTools (Facilitar setup no ambiente de desenvolvimento dando Restart no servidor a cada modificação feita)
+    * Lombok (Facilitar criação de métodos acessores e construtores quando necessário)
+    * Spring Web (Para usar uma API REST)
+    * Open API (Habilitar Swagger)
+    * Spring Data Mongo db
+    * Bean Validation (Para fazer validações de campos na borda mais externa da API, as REQUESTS)
+    * Open Feign (Comunicação entre micro serviços)
+    * RabbitMq (Uso de menssageria)
+    * Java Mail sender (Envio de e-mails)
+* GIT (Controle de versão do projeto)
+* IDE's (Intellij, VS Code)
+* Postman (Testes da API)
+* Mongo Compass (Client MongoDb)
+* Docker (Para subir um container com rabbit MQ) - docker run -it  --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+
+#
+
+# Start 👨🏻‍🔧
 
 1º Faça o clone do projeto.
 
