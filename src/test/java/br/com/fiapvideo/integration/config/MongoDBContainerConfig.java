@@ -1,8 +1,6 @@
 package br.com.fiapvideo.integration.config;
 
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.testcontainers.containers.MongoDBContainer;
 import org.testcontainers.junit.jupiter.Container;
@@ -16,9 +14,11 @@ public abstract class MongoDBContainerConfig {
 
     @Container
     @ServiceConnection
-    static MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo")
+    public static MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo")
             .withEnv("MONGO_INITDB_REPLICA_SET_MODE", "false")
+            .withStartupTimeout(Duration.ofSeconds(120L))
             .withCopyFileToContainer(MountableFile.forClasspathResource(
                             PATH_CARGA_INICIAL),
-                    "/docker-entrypoint-initdb.d/init-script.js");
+                    "/docker-entrypoint-initdb.d/init-script.js")
+            .withReuse(true);
 }

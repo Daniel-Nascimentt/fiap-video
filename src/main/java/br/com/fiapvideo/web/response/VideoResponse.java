@@ -1,6 +1,6 @@
 package br.com.fiapvideo.web.response;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,15 +18,7 @@ public class VideoResponse {
     private String url;
     private LocalDateTime dataPublicacao;
     private PerformanceResponse performance;
+    @JsonIgnoreProperties(value = "conta")
     private UsuarioResponse publicadoPor;
 
-    /**
-     * Esse getter foi declarado para não gerar erro ao vonverter Domain para Response
-     * e resultar em um erro de dependencia ciclica.
-     */
-    @JsonBackReference
-    @Deprecated
-    public UsuarioResponse getPublicadoPor() {
-        return publicadoPor;
-    }
 }

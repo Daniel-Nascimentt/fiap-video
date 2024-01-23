@@ -5,7 +5,6 @@ import br.com.fiapvideo.filters.DynamicFilterVideo;
 import br.com.fiapvideo.filters.RecomendacaoFilterVideo;
 import br.com.fiapvideo.integration.config.MongoDBContainerConfig;
 import br.com.fiapvideo.repository.VideoRepository;
-import br.com.fiapvideo.service.VideoService;
 import br.com.fiapvideo.web.request.EspectVideoRequest;
 import br.com.fiapvideo.web.request.VideoRequest;
 import br.com.fiapvideo.web.response.RelatorioVideoResponse;
@@ -13,9 +12,8 @@ import br.com.fiapvideo.web.response.VideoResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.mongo.AutoConfigureDataMongo;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import reactor.core.publisher.Flux;
@@ -26,11 +24,11 @@ import java.time.LocalDate;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Testcontainers(disabledWithoutDocker = true)
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@DirtiesContext
 public class VideoServiceIT extends MongoDBContainerConfig {
 
     private final static String EMAIL_USER = "usuario1@example.com";

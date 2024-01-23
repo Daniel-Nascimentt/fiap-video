@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import reactor.test.StepVerifier;
@@ -22,10 +23,11 @@ import static org.junit.jupiter.api.Assertions.*;
 @Testcontainers(disabledWithoutDocker = true)
 @ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@DirtiesContext
 public class UsuarioServiceIT extends MongoDBContainerConfig {
 
     private static final String NOME_FAKE_USER_REQUEST = "Nome do usuario request";
-    private static final String EMAIL_FAKE_USER_REQUEST = "request@teste.com";
+    private static final String EMAIL_FAKE_USER_REQUEST = "usuario-service@teste.com";
     private static final LocalDate DATA_NASC_FAKE_USER = LocalDate.of(2000, 5, 19);
 
 
