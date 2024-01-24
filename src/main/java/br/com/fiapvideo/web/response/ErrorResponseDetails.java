@@ -1,6 +1,7 @@
 package br.com.fiapvideo.web.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Getter
+@Schema
 public class ErrorResponseDetails {
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)

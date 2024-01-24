@@ -1,6 +1,7 @@
 package br.com.fiapvideo.web.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
+@Schema
 public class UsuarioResponse {
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
