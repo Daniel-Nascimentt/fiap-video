@@ -46,7 +46,7 @@
 
 #
 
-# Sobre o projeto
+# Sobre o projeto 📖
 
 Foi proposto um desafio de criação de uma API de streaming de videos para a 4ª fase do tech challenge da POS Tech da FIAP em Arquitetura e Desenvolvimento Java.
 
@@ -99,25 +99,25 @@ Visando a facilidade de subir o projeto, foi criado o docker-compose para subir 
 ![image](https://github.com/Daniel-Nascimentt/fiap-video/assets/65513073/14136ee7-9f7c-4c65-b0c9-64d6fc47d2ed)
 #
 
-# Cobertura de testes de unidade
+# Cobertura de testes de unidade 📝
 
 ![image](https://github.com/Daniel-Nascimentt/fiap-video/assets/65513073/f14adceb-60b4-4763-825e-e7ff3ee5f926)
 
 
 #
 
-# Testes integrados
+# Testes integrados 📝
 
 ![image](https://github.com/Daniel-Nascimentt/fiap-video/assets/65513073/ef929d85-6420-4b20-8c77-a671c35b48d6)
 
 #
 
-# Swagger
+# Swagger 🖍️
 
 Link para swagger:
 > http://localhost:8080/fiap-video/swagger-ui/index.html#/
 
 #
 
-# Postman Collection
+# Postman Collection 📌
 
