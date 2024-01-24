@@ -1,4 +1,4 @@
-# FIAP VIDEO - Tech challenge Arquitetura e Desenvolvimento Java - Fase 4
+[FIAP-VIDEO.postman_collection.json](https://github.com/Daniel-Nascimentt/fiap-video/files/14040306/FIAP-VIDEO.postman_collection.json)# FIAP VIDEO - Tech challenge Arquitetura e Desenvolvimento Java - Fase 4
 
 ## ÍNDICE
 
@@ -108,3 +108,6 @@ Link para Swagger:
 ...
 
 # Postman Collection 📌
+
+FIAP-VIDEO.postman_collection.json
+
