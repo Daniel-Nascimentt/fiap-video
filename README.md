@@ -1,57 +1,52 @@
-# FIAP VIDEO - Tech challenge Arquitetura e desenvolvimento Java - Fase4
+# FIAP VIDEO - Tech challenge Arquitetura e Desenvolvimento Java - Fase 4
 
-# ÍNDICE
+## ÍNDICE
 
 * [Tecnologias](#tecnologias)
 * [Start](#start)
-* [Sobre o projeto](#sobreOProjeto)
-* [Fluxos principais (Usuario e Sistema)](#fluxosPrincipaisUsuarioESistema)
-* [Cobertura de testes de unidade](#coberturaDeTestesDeUnidade)
-* [Testes integrados](#testesIntegrados)
+* [Sobre o projeto](#sobre-o-projeto)
+* [Fluxos principais (Usuário e Sistema)](#fluxos-principais-usuario-e-sistema)
+* [Cobertura de testes de unidade](#cobertura-de-testes-de-unidade)
+* [Testes integrados](#testes-integrados)
 * [Swagger](#swagger)
-* [Postman Collection](#postmanCollection)
-
-# 
+* [Postman Collection](#postman-collection)
 
 # Tecnologias 👨🏻‍💻 
 
-* Setup
+* **Setup**
     * Java 17 
-    * Spring boot 3.2.0
+    * Spring Boot 3.2.0
     * DevTools
     * Lombok 
     * Spring Web
     * Open API 
-    * Spring Data Reactive Mongodb
+    * Spring Data Reactive MongoDB
     * Bean Validation
     * WebFlux
     * TestContainers
 * GIT 
-* IDE's (Intellij, VS Code)
+* IDEs (IntelliJ, VS Code)
 * Postman
 * Mongo Compass
 * Docker
 
-#
-
 # Start 👨🏻‍🔧
 
-1º Faça o clone do projeto.
-
-2º Gere o .jar executando o comando (Pulando os testes para ser mais rapido, mas fique avontade para retirar o "-DskipTests"):
-> mvn clean install -DskipTests
-
-3º Execute o seguinte comando para subir a infra do projeto:
->  docker-compose up
-
-#
+1. Faça o clone do projeto.
+2. Gere o .jar executando o comando (pulando os testes para ser mais rápido, mas fique à vontade para retirar o "-DskipTests"):
+    ```bash
+    mvn clean install -DskipTests
+    ```
+3. Execute o seguinte comando para subir a infra do projeto:
+    ```bash
+    docker-compose up
+    ```
 
 # Sobre o projeto 📖
 
-Foi proposto um desafio de criação de uma API de streaming de videos para a 4ª fase do tech challenge da POS Tech da FIAP em Arquitetura e Desenvolvimento Java.
+Foi proposto um desafio de criação de uma API de streaming de vídeos para a 4ª fase do tech challenge da POS Tech da FIAP em Arquitetura e Desenvolvimento Java.
 
 Dentre os requisitos, estavam presentes o desenvolvimento reativo com Spring Web Flux, o uso de desenvolvimento em camadas com o Clean Architecture, testes de unidade e integração, etc.
-
 Com isso fiz a criação de uma API que atendesse esses mesmos requisitos, implementando tambem cenários que contem a inversão de dependencia, regras de negócio mais "centralizadas" e o uso de algumas abstrações para facilidade de implementação de novas funcionalidades em alguns pontos da API que era passivel de novas implementações mais elaboradas.
 
 ### WebFlux
@@ -68,13 +63,11 @@ Como os Use cases executam as logicas de negócio, muitas vezes há a necessidad
 
 ### Testes de unidade
 
-Foi implementado também os testes de unidade validando todas as camadas da API, desde controllers até os UseCases que interagem com a camada de dominio da aplicação. É possivel executa-los a partir do comando:
-> mvn clean install 
+Foi implementado também os testes de unidade validando todas as camadas da API, desde controllers até os UseCases que interagem com a camada de dominio da aplicação.
 
 ### Testes de integração
 
-Foi implementados testesde integração nas camadas de Controller e Service usando o *@TestContainers*. É possivel executa-los a partir do comando:
-> mvn clean install -P integration-tests
+Foi implementados testesde integração nas camadas de Controller e Service usando o *@TestContainers*.
 
 ### Desenhos de fluxos
 
@@ -88,36 +81,30 @@ Um dos requisitos tecnicos, era de implementar filtros por categoria, data de pu
 
 Visando a facilidade de subir o projeto, foi criado o docker-compose para subir dois containers, o container da app e do mongodb.
 
+# Fluxos principais (Usuário e Sistema) 👣 :
 
-#
+![Fluxo de Sistema](https://github.com/Daniel-Nascimentt/fiap-video/assets/65513073/a1c38a60-0154-4008-bbb0-78c7b5094d72)
 
-# Fluxos principais (Usuario e Sistema) 👣 :
-![image](https://github.com/Daniel-Nascimentt/fiap-video/assets/65513073/a1c38a60-0154-4008-bbb0-78c7b5094d72)
+![Fluxo de Sistema](https://github.com/Daniel-Nascimentt/fiap-video/assets/65513073/14136ee7-9f7c-4c65-b0c9-64d6fc47d2ed)
 
-
-
-![image](https://github.com/Daniel-Nascimentt/fiap-video/assets/65513073/14136ee7-9f7c-4c65-b0c9-64d6fc47d2ed)
-#
+...
 
 # Cobertura de testes de unidade 📝
 
-![image](https://github.com/Daniel-Nascimentt/fiap-video/assets/65513073/f14adceb-60b4-4763-825e-e7ff3ee5f926)
+![Cobertura de Testes de Unidade](https://github.com/Daniel-Nascimentt/fiap-video/assets/65513073/f14adceb-60b4-4763-825e-e7ff3ee5f926)
 
-
-#
+...
 
 # Testes integrados 📝
 
-![image](https://github.com/Daniel-Nascimentt/fiap-video/assets/65513073/ef929d85-6420-4b20-8c77-a671c35b48d6)
-
-#
+![Testes Integrados](https://github.com/Daniel-Nascimentt/fiap-video/assets/65513073/ef929d85-6420-4b20-8c77-a671c35b48d6)
+...
 
 # Swagger 🖍️
 
-Link para swagger:
-> http://localhost:8080/fiap-video/swagger-ui/index.html#/
+Link para Swagger:
+> http://localhost:8080/fiap-video/swagger-ui/index.html#/ 
 
-#
+...
 
 # Postman Collection 📌
-
