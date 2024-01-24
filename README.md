@@ -68,11 +68,13 @@ Como os Use cases executam as logicas de negócio, muitas vezes há a necessidad
 
 ### Testes de unidade
 
-Foi implementado também os testes de unidade validando todas as camadas da API, desde controllers até os UseCases que interagem com a camada de dominio da aplicação.
+Foi implementado também os testes de unidade validando todas as camadas da API, desde controllers até os UseCases que interagem com a camada de dominio da aplicação. É possivel executa-los a partir do comando:
+> mvn clean install 
 
 ### Testes de integração
 
-Foi implementados testesde integração nas camadas de Controller e Service usando o *@TestContainers*.
+Foi implementados testesde integração nas camadas de Controller e Service usando o *@TestContainers*. É possivel executa-los a partir do comando:
+> mvn clean install -P integration-tests
 
 ### Desenhos de fluxos
 
@@ -99,11 +101,14 @@ Visando a facilidade de subir o projeto, foi criado o docker-compose para subir 
 
 # Cobertura de testes de unidade
 
+![image](https://github.com/Daniel-Nascimentt/fiap-video/assets/65513073/f14adceb-60b4-4763-825e-e7ff3ee5f926)
+
 
 #
 
 # Testes integrados
 
+![image](https://github.com/Daniel-Nascimentt/fiap-video/assets/65513073/ef929d85-6420-4b20-8c77-a671c35b48d6)
 
 #
 
