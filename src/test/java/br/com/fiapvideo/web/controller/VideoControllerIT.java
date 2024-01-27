@@ -38,7 +38,7 @@ public class VideoControllerIT extends MongoDBContainerConfig {
 
     private final static String EMAIL_USER = "usuario1@example.com";
     private static final String VIDEO_FAKE_CATEGORIA = "Categoria fake";
-
+    private static final String VIDEO_FAKE_DESCRICAO = "Video Fake descricao";
     @Autowired
     private WebTestClient webTestClient;
 
@@ -344,6 +344,7 @@ public class VideoControllerIT extends MongoDBContainerConfig {
         return new VideoRequest(
                 titulo,
                 VIDEO_FAKE_CATEGORIA,
+                VIDEO_FAKE_DESCRICAO,
                 EMAIL_USER);
     }
 

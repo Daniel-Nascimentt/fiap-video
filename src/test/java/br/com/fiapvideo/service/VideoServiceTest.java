@@ -51,6 +51,7 @@ public class VideoServiceTest {
     private static final String VIDEO_FAKE_TITULO = "Fake Video";
     private static final String VIDEO_FAKE_URL = "http://fake.com/video";
     private static final String VIDEO_FAKE_CATEGORIA = "Categoria fake";
+    private static final String VIDEO_FAKE_DESCRICAO = "Descricao fake";
 
 
     @Mock
@@ -218,6 +219,7 @@ public class VideoServiceTest {
 
         VideoRequest videoRequest = new VideoRequest( "titulo modificado",
                 VIDEO_FAKE_CATEGORIA,
+                VIDEO_FAKE_DESCRICAO,
                 FAKE_EMAIL_USER);
 
         VideoDomain videoDomain = getVideoFake();
@@ -285,6 +287,7 @@ public class VideoServiceTest {
                 LocalDateTime.now(),
                 new PerformanceDomain(0L, 0L),
                 VIDEO_FAKE_CATEGORIA,
+                VIDEO_FAKE_DESCRICAO,
                 getFakeUsuario());
 
         video.setId(UUID.randomUUID().toString());
@@ -295,6 +298,7 @@ public class VideoServiceTest {
         return new VideoRequest(
                 VIDEO_FAKE_TITULO,
                 VIDEO_FAKE_CATEGORIA,
+                VIDEO_FAKE_DESCRICAO,
                 FAKE_EMAIL_USER);
     }
 

@@ -4,6 +4,7 @@ import br.com.fiapvideo.integration.config.MongoDBContainerConfig;
 import br.com.fiapvideo.useCases.domain.ContaDomain;
 import br.com.fiapvideo.useCases.domain.UsuarioDomain;
 import br.com.fiapvideo.web.request.UsuarioRequest;
+import br.com.fiapvideo.web.request.UsuarioUpdateRequest;
 import br.com.fiapvideo.web.response.ContaResponse;
 import br.com.fiapvideo.web.response.UsuarioResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -75,7 +76,7 @@ public class UsuarioServiceIT extends MongoDBContainerConfig {
     @Test
     public void atualizarUsuario(){
 
-        StepVerifier.create(usuarioService.atualizarUsuario("usuario1@example.com", getRequestFakeUsuario()))
+        StepVerifier.create(usuarioService.atualizarUsuario("usuario1@example.com", getUpdateRequestFakeUsuario()))
                 .expectNextMatches(usuarioAtt -> {
                     assertNotNull(usuarioAtt);
                     assertInstanceOf(UsuarioResponse.class, usuarioAtt);
@@ -87,6 +88,14 @@ public class UsuarioServiceIT extends MongoDBContainerConfig {
 
     private UsuarioRequest getRequestFakeUsuario() {
         return new UsuarioRequest(
+                NOME_FAKE_USER_REQUEST,
+                EMAIL_FAKE_USER_REQUEST,
+                DATA_NASC_FAKE_USER
+        );
+    }
+
+    private UsuarioUpdateRequest getUpdateRequestFakeUsuario() {
+        return new UsuarioUpdateRequest(
                 NOME_FAKE_USER_REQUEST,
                 EMAIL_FAKE_USER_REQUEST,
                 DATA_NASC_FAKE_USER

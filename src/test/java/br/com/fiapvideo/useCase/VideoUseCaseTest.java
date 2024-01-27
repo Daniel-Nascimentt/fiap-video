@@ -49,6 +49,7 @@ public class VideoUseCaseTest {
     private static final String VIDEO_FAKE_TITULO = "Fake Video";
     private static final String VIDEO_FAKE_URL = "http://fake.com/video";
     private static final String VIDEO_FAKE_CATEGORIA = "Categoria fake";
+    private static final String VIDEO_FAKE_DESCRICAO = "Descricao video fake";
 
 
     @Mock
@@ -157,7 +158,7 @@ public class VideoUseCaseTest {
     @Test
     public void atualizarVideoPublicadorNaoCorrespondeException(){
 
-        VideoRequest videoRequest = new VideoRequest(VIDEO_FAKE_TITULO, VIDEO_FAKE_CATEGORIA, "email.alterado@teste.com");
+        VideoRequest videoRequest = new VideoRequest(VIDEO_FAKE_TITULO, VIDEO_FAKE_CATEGORIA, VIDEO_FAKE_DESCRICAO,"email.alterado@teste.com");
         VideoDomain videoDomain = getVideoFake();
 
         when(videoRepository.findById(anyString())).thenReturn(Mono.just(videoDomain));
@@ -227,6 +228,7 @@ public class VideoUseCaseTest {
         return new VideoRequest(
                 VIDEO_FAKE_TITULO,
                 VIDEO_FAKE_CATEGORIA,
+                VIDEO_FAKE_DESCRICAO,
                 EMAIL_FAKE_USER);
     }
 
@@ -237,6 +239,7 @@ public class VideoUseCaseTest {
                 LocalDateTime.now(),
                 new PerformanceDomain(0L, 0L),
                 VIDEO_FAKE_CATEGORIA,
+                VIDEO_FAKE_DESCRICAO,
                 getFakeUsuario());
 
         video.setId(UUID.randomUUID().toString());

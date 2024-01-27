@@ -6,6 +6,7 @@ import br.com.fiapvideo.repository.UsuarioRepository;
 import br.com.fiapvideo.useCases.UsuarioUseCase;
 import br.com.fiapvideo.useCases.domain.UsuarioDomain;
 import br.com.fiapvideo.web.request.UsuarioRequest;
+import br.com.fiapvideo.web.request.UsuarioUpdateRequest;
 import br.com.fiapvideo.web.response.UsuarioResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class UsuarioService {
         return new UsuarioUseCase().toResponse(usuario);
     }
 
-    public Mono<UsuarioResponse> atualizarUsuario(String emailAtual, UsuarioRequest request) {
+    public Mono<UsuarioResponse> atualizarUsuario(String emailAtual, UsuarioUpdateRequest request) {
         Mono<UsuarioDomain> usuarioEncontrado = this.buscarPorEmail(emailAtual);
         return new UsuarioUseCase().atualizarUsuario(usuarioEncontrado, request, usuarioRepository);
     }

@@ -6,6 +6,7 @@ import br.com.fiapvideo.repository.UsuarioRepository;
 import br.com.fiapvideo.useCases.domain.ContaDomain;
 import br.com.fiapvideo.useCases.domain.UsuarioDomain;
 import br.com.fiapvideo.web.request.UsuarioRequest;
+import br.com.fiapvideo.web.request.UsuarioUpdateRequest;
 import br.com.fiapvideo.web.response.ContaResponse;
 import br.com.fiapvideo.web.response.ToResponse;
 import br.com.fiapvideo.web.response.UsuarioResponse;
@@ -41,7 +42,7 @@ public class UsuarioUseCase implements ToResponse<UsuarioDomain, UsuarioResponse
                 .switchIfEmpty(Mono.error(new UsuarioNotFoundException()));
     }
 
-    public Mono<UsuarioResponse> atualizarUsuario(Mono<UsuarioDomain> usuarioEncontrado, UsuarioRequest request, UsuarioRepository usuarioRepository) {
+    public Mono<UsuarioResponse> atualizarUsuario(Mono<UsuarioDomain> usuarioEncontrado, UsuarioUpdateRequest request, UsuarioRepository usuarioRepository) {
         return usuarioEncontrado.flatMap(user -> {
             this.atualizarAtributos(user, request);
             return usuarioRepository.save(user);
@@ -49,7 +50,7 @@ public class UsuarioUseCase implements ToResponse<UsuarioDomain, UsuarioResponse
 
     }
 
-    private void atualizarAtributos(UsuarioDomain usuario, UsuarioRequest request) {
+    private void atualizarAtributos(UsuarioDomain usuario, UsuarioUpdateRequest request) {
         usuario.setNome(request.getNome());
         usuario.setEmail(request.getEmail());
         usuario.setDataNascimento(request.getDataNascimento());

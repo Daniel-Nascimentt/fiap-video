@@ -3,6 +3,7 @@ package br.com.fiapvideo.web.controller;
 import br.com.fiapvideo.service.UsuarioService;
 import br.com.fiapvideo.useCases.UsuarioUseCase;
 import br.com.fiapvideo.web.request.UsuarioRequest;
+import br.com.fiapvideo.web.request.UsuarioUpdateRequest;
 import br.com.fiapvideo.web.response.UsuarioResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class UsuarioController {
     @PutMapping
     public Mono<ResponseEntity<UsuarioResponse>> atualizarUsuario(
             @RequestParam(name = "emailAtual", required = true) String emailAtual,
-            @RequestBody @Valid UsuarioRequest request){
+            @RequestBody @Valid UsuarioUpdateRequest request){
 
         return usuarioService.atualizarUsuario(emailAtual, request)
                 .map(usuario -> ResponseEntity.status(HttpStatus.OK).body(usuario));

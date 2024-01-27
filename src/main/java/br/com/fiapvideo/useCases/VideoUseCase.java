@@ -40,6 +40,7 @@ public class VideoUseCase implements ToResponse<VideoDomain, VideoResponse> {
                 LocalDateTime.now(),
                 new PerformanceDomain(0L, 0L),
                 request.getCategoria(),
+                request.getDescricao(),
                 usuario
         )).doOnNext(video -> {
             new ContaUseCase().addVideoPublicado(usuario.getConta(), contaRepository, video);
@@ -140,6 +141,7 @@ public class VideoUseCase implements ToResponse<VideoDomain, VideoResponse> {
         videoDomain.setTitulo(request.getTitulo());
         videoDomain.setUrl(gerarUrlAPartirTitulo(request.getTitulo()));
         videoDomain.setDataPublicacao(LocalDateTime.now());
+        videoDomain.setDescricao(request.getDescricao());
 
         return videoDomain;
     }

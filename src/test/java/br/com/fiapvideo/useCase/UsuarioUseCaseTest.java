@@ -7,6 +7,7 @@ import br.com.fiapvideo.useCases.UsuarioUseCase;
 import br.com.fiapvideo.useCases.domain.ContaDomain;
 import br.com.fiapvideo.useCases.domain.UsuarioDomain;
 import br.com.fiapvideo.web.request.UsuarioRequest;
+import br.com.fiapvideo.web.request.UsuarioUpdateRequest;
 import br.com.fiapvideo.web.response.UsuarioResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -105,7 +106,7 @@ public class UsuarioUseCaseTest {
 
         when(usuarioRepository.save(any())).thenReturn(Mono.just(usuarioDomain));
 
-        Mono<UsuarioResponse> usuario = new UsuarioUseCase().atualizarUsuario(Mono.just(usuarioDomain), getRequestFakeUsuario(), usuarioRepository);
+        Mono<UsuarioResponse> usuario = new UsuarioUseCase().atualizarUsuario(Mono.just(usuarioDomain), getUpdateRequestFakeUsuario(), usuarioRepository);
 
         StepVerifier.create(usuario)
                 .expectNextMatches(user -> {
@@ -116,6 +117,13 @@ public class UsuarioUseCaseTest {
                 }).verifyComplete();
     }
 
+    private UsuarioUpdateRequest getUpdateRequestFakeUsuario() {
+        return new UsuarioUpdateRequest(
+                NOME_FAKE_USER_REQUEST,
+                EMAIL_FAKE_USER_REQUEST,
+                DATA_NASC_FAKE_USER
+        );
+    }
 
 
     private UsuarioRequest getRequestFakeUsuario() {

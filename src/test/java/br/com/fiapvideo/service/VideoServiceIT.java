@@ -37,6 +37,7 @@ public class VideoServiceIT extends MongoDBContainerConfig {
     private static final String VIDEO_FAKE_CATEGORIA = "Fakes";
     private static final String CATEGORIA_TEST_VALIDATION = "PROGRAMACAO";
     private static final long QTD_VIDEOS_CARGA_INICIAL_PROGRAMACAO = 3L;
+    private static final String VIDEO_FAKE_DESCRICAO = "Video Fake descricao";
 
     @Autowired
     private VideoService videoService;
@@ -119,6 +120,7 @@ public class VideoServiceIT extends MongoDBContainerConfig {
         VideoResponse video = videoService.criarVideo(new VideoRequest(
                 VIDEO_FAKE_TITULO,
                 VIDEO_FAKE_CATEGORIA,
+                VIDEO_FAKE_DESCRICAO,
                 EMAIL_USER_2)).block();
 
         assertNotNull(video);
@@ -155,6 +157,7 @@ public class VideoServiceIT extends MongoDBContainerConfig {
         VideoResponse video = videoService.criarVideo(new VideoRequest(
                 VIDEO_FAKE_TITULO,
                 VIDEO_FAKE_CATEGORIA,
+                VIDEO_FAKE_DESCRICAO,
                 EMAIL_USER_2
         )).block();
 
@@ -167,6 +170,7 @@ public class VideoServiceIT extends MongoDBContainerConfig {
                 new VideoRequest(
                         "Titulo modificado",
                         "Categoria modificada",
+                        VIDEO_FAKE_DESCRICAO,
                         EMAIL_USER_2), video.getId()
         );
 
@@ -230,6 +234,7 @@ public class VideoServiceIT extends MongoDBContainerConfig {
         return new VideoRequest(
                 VIDEO_FAKE_TITULO,
                 VIDEO_FAKE_CATEGORIA,
+                VIDEO_FAKE_DESCRICAO,
                 EMAIL_USER);
     }
 

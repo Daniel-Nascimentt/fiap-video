@@ -19,6 +19,12 @@ public class VideoRequest {
     @Size(min = 5)
     private String categoria;
 
+    @NotBlank(message = "O vídeo precisa ter uma descricao.")
+    @Size(min = 5)
+    private String descricao;
+
     @NotBlank(message = "Informe o e-mail do publicardor do vídeo.")
     private String publicadoPor;
+
+
 }

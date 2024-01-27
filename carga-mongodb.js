@@ -1,4 +1,4 @@
-var db = db.getSiblingDB("test");
+var db = db.getSiblingDB("fiap-video");
 
 var conta1 = {
     videosPublicados: [],

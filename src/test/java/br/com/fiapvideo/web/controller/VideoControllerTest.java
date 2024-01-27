@@ -43,6 +43,7 @@ public class VideoControllerTest {
     private static final String VIDEO_FAKE_TITULO = "Fake Video";
     private static final String VIDEO_FAKE_URL = "http://fake.com/video";
     private static final String VIDEO_FAKE_CATEGORIA = "Categoria fake";
+    private static final String VIDEO_FAKE_DESCRICAO = "Video Fake descricao";
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -202,6 +203,7 @@ public class VideoControllerTest {
                 LocalDateTime.now(),
                 new PerformanceDomain(0L, 0L),
                 VIDEO_FAKE_CATEGORIA,
+                VIDEO_FAKE_DESCRICAO,
                 getFakeUsuario());
 
         video.setId(UUID.randomUUID().toString());
@@ -212,6 +214,7 @@ public class VideoControllerTest {
         return new VideoRequest(
                 VIDEO_FAKE_TITULO,
                 VIDEO_FAKE_CATEGORIA,
+                VIDEO_FAKE_DESCRICAO,
                 FAKE_EMAIL_USER);
     }
 

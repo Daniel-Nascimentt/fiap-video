@@ -31,6 +31,7 @@ public class ContaUseCaseTest {
     private static final String VIDEO_FAKE_TITULO = "Fake Video";
     private static final String VIDEO_FAKE_URL = "http://fake.com/video";
     private static final String VIDEO_FAKE_CATEGORIA = "Categoria fake";
+    private static final String VIDEO_FAKE_DESCRICAO = "Fake descricao.";
 
     @Mock
     private ContaRepository contaRepository;
@@ -136,6 +137,7 @@ public class ContaUseCaseTest {
                 LocalDateTime.now(),
                 new PerformanceDomain(0L, 0L),
                 VIDEO_FAKE_CATEGORIA,
+                VIDEO_FAKE_DESCRICAO,
                 getFakeUsuario());
 
         video.setId(UUID.randomUUID().toString());

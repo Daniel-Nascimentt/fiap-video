@@ -6,6 +6,7 @@ import br.com.fiapvideo.repository.UsuarioRepository;
 import br.com.fiapvideo.useCases.domain.ContaDomain;
 import br.com.fiapvideo.useCases.domain.UsuarioDomain;
 import br.com.fiapvideo.web.request.UsuarioRequest;
+import br.com.fiapvideo.web.request.UsuarioUpdateRequest;
 import br.com.fiapvideo.web.response.ContaResponse;
 import br.com.fiapvideo.web.response.UsuarioResponse;
 import org.junit.jupiter.api.DisplayName;
@@ -109,7 +110,7 @@ public class UsuarioServiceTest {
     @Test
     public void atualizarUsuario() {
 
-        UsuarioRequest request = new UsuarioRequest();
+        UsuarioUpdateRequest request = new UsuarioUpdateRequest();
         request.setEmail("email-alterado@teste.com");
 
         UsuarioDomain usuarioDomain = getFakeUsuario();
