@@ -4,6 +4,9 @@ services:
     image: mongo:latest
     ports:
       - 27018:27017
+    volumes:
+      - ./carga-mongodb.js:/docker-entrypoint-initdb.d/carga-mongodb.js
+      - ./data.json:/docker-entrypoint-initdb.d/data.json
 
 
   fiap-video:
