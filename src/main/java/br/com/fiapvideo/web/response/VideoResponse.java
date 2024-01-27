@@ -17,6 +17,7 @@ public class VideoResponse {
     private String id;
     private String titulo;
     private String categoria;
+    private String descricao;
     private String url;
     private LocalDateTime dataPublicacao;
     private PerformanceResponse performance;
